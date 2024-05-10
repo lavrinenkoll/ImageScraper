@@ -26,14 +26,16 @@ def parse_google(query, driver, n_pages=3):
     return parser.links
 
 
-query = "лілії"
+query = "смартфон vivo"
+n_pages_bing = 1
+n_pages_google = 1
 driver_google = webdriver.Chrome()
 driver_bing = webdriver.Chrome()
 
 
 with ThreadPoolExecutor() as executor:
-    future_bing = executor.submit(parse_bing, query, driver_bing, 1)
-    future_google = executor.submit(parse_google, query, driver_google, 1)
+    future_bing = executor.submit(parse_bing, query, driver_bing, n_pages_bing)
+    future_google = executor.submit(parse_google, query, driver_google, n_pages_google)
 
     links_bing = future_bing.result()
     links_google = future_google.result()
@@ -45,10 +47,14 @@ print("Google Links:", links_google)
 print("Number of Google Links:", len(links_google))
 
 all_links = links_bing + links_google
+all_links = [link for link in all_links if link is not None]
 all_links = list(set(all_links))
+
 with open(f"{query}.txt", 'w') as f:
     for link in all_links:
-        f.write(link + '\n')
+        if link is not None:
+            f.write(link + '\n')
+
 
 
 def get_images(url):
@@ -67,7 +73,8 @@ def get_images(url):
             images[i]['src'] = image_url
     return images
 
-def plot_images(images):
+
+def save_images(images):
     for i, image in enumerate(images):
         image_url = image['src']
 
@@ -89,11 +96,9 @@ def plot_images(images):
             print(f"Error processing image {image_url}: {e}")
 
 
-# for url in all_links:
-#     try:
-#         images = get_images(url)
-#         plot_images(images)
-#     except Exception as e:
-#         print(f"Error processing {url}: {e}")
-
-
+for url in all_links:
+    try:
+        images = get_images(url)
+        save_images(images)
+    except Exception as e:
+        print(f"Error processing {url}: {e}")
