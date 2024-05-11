@@ -114,7 +114,7 @@ def delete_file(file_path, max_retries=3, retry_delay=1):
 
 if __name__ == "__main__":
     # Specify the directory containing images
-    directory_path = 'imgs/смартфон vivo'
+    directory_path = 'imgs/Leopard 2'
 
     extensions = ('jpg', 'jpeg', 'png')
 
