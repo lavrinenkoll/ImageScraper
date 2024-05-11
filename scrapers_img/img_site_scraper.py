@@ -31,7 +31,7 @@ class ImagesFromSiteScraper:
 
         return self.images
 
-    def save_images(self, path, query):
+    def save_images(self, path):
         for i, image in enumerate(self.images):
             image_url = image['src']
 
@@ -44,9 +44,8 @@ class ImagesFromSiteScraper:
             try:
                 response = requests.get(image_url)
                 img = Image.open(BytesIO(response.content))
-                folder_path = os.path.join(path, query)
-                os.makedirs(folder_path, exist_ok=True)
-                img.save(f"{path}/{query}/{i}_{image_url.split('/')[-1]}")
+                os.makedirs(path, exist_ok=True)
+                img.save(f"{path}/{i}_{image_url.split('/')[-1]}")
                 print(f"Succesfully processed image {image_url}")
             except Exception as e:
                 print(f"Error processing image {image_url}: {e}")
