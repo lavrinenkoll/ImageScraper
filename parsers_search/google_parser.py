@@ -1,7 +1,4 @@
 from bs4 import BeautifulSoup
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 from parsers_search.search_parser import SearchParser
 
 

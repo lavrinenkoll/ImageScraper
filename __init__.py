@@ -1,11 +1,5 @@
-import threading
-from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
-
 from selenium import webdriver
-from parsers_search.bing_parser import BingSearchParser
-from parsers_search.google_parser import GoogleSearchParser
-
 from process_img.imgs_cleaner import ImagesCleaner
 #
 # def parse_bing(query, driver, n_pages=3):
