@@ -1,4 +1,6 @@
 from concurrent.futures import ThreadPoolExecutor
+from pathlib import Path
+
 from parsers_search.bing_parser import BingSearchParser
 from parsers_search.google_parser import GoogleSearchParser
 
@@ -11,6 +13,9 @@ class MainParser:
         self.n_pages_google = n_pages_google
         self.n_pages_bing = n_pages_bing
         self.all_links = []
+
+        self.bing_parser = BingSearchParser(self.driver_bing)
+        self.google_parser = GoogleSearchParser(self.driver_google)
 
     def parse(self, path_to_save=None):
         self.all_links = []
@@ -29,6 +34,9 @@ class MainParser:
             self.all_links = list(set(self.all_links))
 
             if path_to_save is not None:
+                Path(path_to_save).mkdir(parents=True, exist_ok=True)
+
+            if path_to_save is not None:
                 with open(f"{path_to_save}/{self.query}.txt", 'w') as f:
                     for link in self.all_links:
                         if link is not None:
@@ -42,14 +50,12 @@ class MainParser:
         return self.all_links
 
     def parse_bing(self, query, driver, n_pages=1):
-        parser = BingSearchParser(driver)
-        parser.parse(query, n_pages)
+        self.bing_parser.parse(query, n_pages)
         driver.quit()
-        return parser.links
+        return self.bing_parser.links
 
     def parse_google(self, query, driver, n_pages=1):
-        parser = GoogleSearchParser(driver)
-        parser.parse(query, n_pages)
+        self.google_parser.parse(query, n_pages)
         driver.quit()
-        return parser.links
+        return self.google_parser.links
 

@@ -1,4 +1,5 @@
 import os
+import shutil
 import time
 import imagehash
 from PIL import Image, ImageOps
@@ -6,10 +7,11 @@ from collections import defaultdict
 
 
 class ImagesCleaner:
-    def __init__(self, directory):
+    def __init__(self, directory, save_deleted=False):
         self.directory = directory
         self.extensions = ('.jpg', '.jpeg', '.png')
         self.image_files = self.get_image_files()
+        self.save_deleted = save_deleted
 
     def get_image_files(self):
         image_files = []
@@ -94,8 +96,16 @@ class ImagesCleaner:
         while retries < max_retries:
             try:
                 if os.path.exists(file_path):
+
+                    if self.save_deleted:
+                        deleted_folder = os.path.join(self.directory, 'deleted')
+                        os.makedirs(deleted_folder, exist_ok=True)
+                        file_name = os.path.basename(file_path)
+                        deleted_file_path = os.path.join(deleted_folder, file_name)
+                        shutil.copyfile(file_path, deleted_file_path)
+
                     os.remove(file_path)
-                    break  # File deleted successfully, exit the loop
+                    break
                 else:
                     print(f"File {file_path} not found.")
                     break
@@ -106,12 +116,13 @@ class ImagesCleaner:
         else:
             print(f"Error: Could not delete {file_path} after {max_retries} retries.")
 
-    def run(self, settings=(True, True, True, True)):
-        if settings[0]:
-            self.find_and_delete_small_images(min_width=70, min_height=70)
-        if settings[1]:
+    def run(self, delete_small_images=True, min_width=70, min_height=70, delete_duplicates=True,
+            delete_mirror_duplicates_horizontal=True, delete_mirror_duplicates_vertical=True):
+        if delete_small_images:
+            self.find_and_delete_small_images(min_width, min_height)
+        if delete_duplicates:
             self.find_and_delete_duplicates()
-        if settings[2]:
+        if delete_mirror_duplicates_horizontal:
             self.delete_mirror_duplicates(flip_direction='horizontal')
-        if settings[3]:
+        if delete_mirror_duplicates_vertical:
             self.delete_mirror_duplicates(flip_direction='vertical')

@@ -5,6 +5,7 @@ from parsers_search.search_parser import SearchParser
 class BingSearchParser(SearchParser):
     def parse(self, query, n_pages):
         self.links = []
+        query += " -site:*.ru -site:*.by -site:*.рф -site:*.бел"
         for page in range(1, n_pages + 1):
             url = f"https://www.bing.com/search?q={query}&first={(page - 1) * 10}"
             self.driver.get(url)
