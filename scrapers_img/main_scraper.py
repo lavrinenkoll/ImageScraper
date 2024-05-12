@@ -5,21 +5,19 @@ from scrapers_img.img_site_scraper import ImagesFromSiteScraper
 
 
 class MainScraper:
-    def __init__(self, all_links, query):
-        self.all_links = all_links
-        self.query = query
+    def __init__(self):
+        self.scraper = ImagesFromSiteScraper()
 
-    def run(self):
-        scraper = ImagesFromSiteScraper()
+    def run(self, all_links, query):
         num_threads = 10
         work_queue = queue.Queue()
 
-        for url in self.all_links:
+        for url in all_links:
             work_queue.put(url)
 
         threads = []
         for _ in range(num_threads):
-            thread = threading.Thread(target=self.worker, args=(work_queue, scraper, self.query))
+            thread = threading.Thread(target=self.worker, args=(work_queue, self.scraper, query))
             thread.start()
             threads.append(thread)
 
