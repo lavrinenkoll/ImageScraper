@@ -57,3 +57,13 @@ class FileManager:
 
             if not os.listdir(subdir):
                 os.rmdir(subdir)
+
+    @staticmethod
+    def move_files_to_folders(folder_files_map):
+        for folder, files in folder_files_map.items():
+            os.makedirs(folder, exist_ok=True)
+            for file in files:
+                try:
+                    shutil.move(file, folder)
+                except Exception as e:
+                    continue

@@ -1,56 +1,33 @@
 import os
-import shutil
 from collections import defaultdict
-from random import random
-
 import numpy as np
 from PIL import Image
-from matplotlib import pyplot as plt
 from sklearn.cluster import KMeans
 from sklearn.metrics import silhouette_score
 
+from cataloging_img.keras_models.resnet_prediction import ResNetPrediction
+from cataloging_img.keras_models.mobilenetv2_prediction import MobileNetV2Prediction
 from tools.file_manager import FileManager
 
 
-class ImageCataloger:
+class ImagesCataloger:
     def __init__(self, directory):
         self.directory = directory
         self.extensions = ('.jpg', '.jpeg', '.png', '.JPG', '.JPEG', '.PNG')
         self.file_manager = FileManager(directory)
         self.image_files = self.file_manager.get_image_files()
 
-    # def get_image_files(self):
-    #     image_files = []
-    #     try:
-    #         for file in os.listdir(self.directory):
-    #             if file.endswith(self.extensions):
-    #                 image_files.append(os.path.join(self.directory, file))
-    #     except OSError as e:
-    #         print(f"Error listing files in {self.directory}: {e}")
-    #     if not image_files:
-    #         print(f"No images found in {self.directory}")
-    #     return image_files
+        self.resnet_predictor = ResNetPrediction(directory)
+        self.mobilenet_predictor = MobileNetV2Prediction(directory)
 
-    # def extract_images_from_folders(self, directory):
-    #     subdirectories = [os.path.join(directory, d) for d in os.listdir(directory) if
-    #                       os.path.isdir(os.path.join(directory, d))]
-    #
-    #     for subdir in subdirectories:
-    #         for file in os.listdir(subdir):
-    #             if file.endswith(self.extensions):
-    #                 source_path = os.path.join(subdir, file)
-    #                 destination_path = os.path.join(directory, file)
-    #
-    #                 shutil.move(source_path, destination_path)
-    #
-    #         if not os.listdir(subdir):
-    #             os.rmdir(subdir)
     def extract_images_from_folders(self):
         self.file_manager.extract_images_from_folders(self.directory)
         self.image_files = self.file_manager.get_image_files()
 
     def split_images_by_resolution(self, list_resolutions):
         self.image_files = self.file_manager.get_image_files()
+
+        folder_files_map = {}
 
         for resolution in list_resolutions:
             min_width, min_height = resolution[0]
@@ -60,6 +37,8 @@ class ImageCataloger:
             folder_path = os.path.join(self.directory, folder_name)
             os.makedirs(folder_path, exist_ok=True)
 
+            folder_files_map[folder_path] = []
+
             files_to_move = []
 
             for image_file in self.image_files:
@@ -68,16 +47,12 @@ class ImageCataloger:
                         width, height = img.size
                         if (min_width <= width <= max_width) and (min_height <= height <= max_height):
                             files_to_move.append(image_file)
+                            folder_files_map[folder_path].append(image_file)
                 except (IOError, OSError, ValueError) as e:
                     print(f"Error processing {image_file}: {e}")
 
-            for image_file in files_to_move:
-                try:
-                    shutil.move(image_file, folder_path)
-                except Exception as e:
-                    print(f"Error moving {image_file} to {folder_path}: {e}")
-
-            self.image_files = [f for f in self.image_files if f not in files_to_move]
+        self.file_manager.move_files_to_folders(folder_files_map)
+        self.image_files = [f for f in self.image_files if f not in files_to_move]
 
     def calculate_resolutions(self, max_clusters=10):
         self.image_files = self.file_manager.get_image_files()
@@ -141,6 +116,8 @@ class ImageCataloger:
     def split_images_by_file_size(self, list_file_sizes):
         self.image_files = self.file_manager.get_image_files()
 
+        folder_files_map = {}
+
         if type(list_file_sizes[0][0]) is str:
             list_file_sizes = [(self.get_file_size_from_text(file_size[0]), self.get_file_size_from_text(file_size[1]))
                                for file_size in list_file_sizes]
@@ -151,22 +128,21 @@ class ImageCataloger:
             folder_path = os.path.join(self.directory, folder_name)
             os.makedirs(folder_path, exist_ok=True)
 
+            folder_files_map[folder_path] = []
+
             files_to_move = []
 
             for image_file in self.image_files:
                 try:
-                    if min_size <= os.path.getsize(image_file) <= max_size:
+                    file_size_bytes = os.path.getsize(image_file)
+                    if min_size <= file_size_bytes <= max_size:
                         files_to_move.append(image_file)
+                        folder_files_map[folder_path].append(image_file)
                 except Exception as e:
                     print(f"Error processing {image_file}: {e}")
 
-            for image_file in files_to_move:
-                try:
-                    shutil.move(image_file, folder_path)
-                except Exception as e:
-                    print(f"Error moving {image_file} to {folder_path}: {e}")
-
-            self.image_files = [f for f in self.image_files if f not in files_to_move]
+        self.file_manager.move_files_to_folders(folder_files_map)
+        self.image_files = [f for f in self.image_files if f not in files_to_move]
 
     def calculate_file_sizes(self, max_clusters=10):
         self.image_files = self.file_manager.get_image_files()
@@ -247,19 +223,9 @@ class ImageCataloger:
         elif file_size_text[-1] == 'B':
             return float(file_size_text[:-1])
 
+    def split_images_by_tags_resnet(self):
+        self.resnet_predictor.sort_files_by_tags()
 
-
-path = '../imgs/Leopard 2 — копия (2)'
-#path = '../imgs/Leopard 2 tank photos'
-#path = '../imgs/Leopard 2 tank — копия'
-img_cataloger = ImageCataloger(directory=path)
-
-img_cataloger.extract_images_from_folders()
-#
-# img_cataloger.split_images_by_resolution(list_resolutions=[((150, 150), (600, 600)), ((600, 600), (1500, 1500))])
-#img_cataloger.split_images_by_file_size(list_file_sizes=[('10B', '100KB'), ('100KB', '500KB'), ('500KB', '1MB')])
-
-#img_cataloger.split_images_by_resolution_auto(max_clusters=15)
-img_cataloger.split_images_by_file_size_auto(max_clusters=15)
-
+    def split_images_by_tags_mobilenet(self):
+        self.mobilenet_predictor.sort_files_by_tags()
 
