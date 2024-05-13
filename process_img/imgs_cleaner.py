@@ -1,48 +1,37 @@
 import os
-import shutil
-import time
 import imagehash
 from PIL import Image, ImageOps
 from collections import defaultdict
+from tools.file_manager import FileManager
 
 
 class ImagesCleaner:
     def __init__(self, directory, save_deleted=False):
         self.directory = directory
-        self.extensions = ('.jpg', '.jpeg', '.png')
-        self.image_files = self.get_image_files()
+        self.extensions = ('.jpg', '.jpeg', '.png', '.JPG', '.JPEG', '.PNG')
+        self.file_manager = FileManager(directory)
         self.save_deleted = save_deleted
+        self.image_files = []
 
-    def get_image_files(self):
-        image_files = []
-        try:
-            for file in os.listdir(self.directory):
-                if file.endswith(self.extensions):
-                    image_files.append(os.path.join(self.directory, file))
-        except OSError as e:
-            print(f"Error listing files in {self.directory}: {e}")
-        return image_files
-
-    def find_and_delete_trash_images(self, white_images=True, black_images=True):
-        self.image_files = self.get_image_files()
+    def find_and_delete_one_color_images(self):
+        self.image_files = self.file_manager.get_image_files()
         for image_file in self.image_files:
             print(f"Processing file: {image_file}")
             try:
                 with Image.open(image_file) as img:
-                    grayscale_img = img.convert('L')
-                    is_all_white = all(pixel == 255 for pixel in grayscale_img.getdata())
-                    is_all_black = all(pixel == 0 for pixel in grayscale_img.getdata())
-                    if white_images and is_all_white:
-                        print(f"Image is all white: {image_file}. Deleting...")
-                        self.delete_file(image_file)
-                    if black_images and is_all_black:
-                        print(f"Image is all black: {image_file}. Deleting...")
-                        self.delete_file(image_file)
+                    img = img.convert('RGB')
+                    colors = img.getcolors()
+                    if colors is not None and len(colors) == 1:
+                        print(f"Image is one color: {image_file}. Deleting...")
+                        img.close()
+                        self.file_manager.delete_file(image_file, save_deleted=self.save_deleted)
+                    else:
+                        img.close()
             except (IOError, OSError, ValueError) as e:
                 print(f"Error processing {image_file}: {e}")
 
     def find_and_delete_small_images(self, min_width=50, min_height=50):
-        self.image_files = self.get_image_files()
+        self.image_files = self.file_manager.get_image_files()
         for image_file in self.image_files:
             print(f"Processing file: {image_file}")
             try:
@@ -51,12 +40,12 @@ class ImagesCleaner:
                     if width < min_width or height < min_height:
                         print(f"Image is too small: {image_file}. Deleting...")
                         img.close()
-                        self.delete_file(image_file)
+                        self.file_manager.delete_file(image_file)
             except (IOError, OSError, ValueError) as e:
                 print(f"Error processing {image_file}: {e}")
 
     def find_and_delete_duplicates(self):
-        self.image_files = self.get_image_files()
+        self.image_files = self.file_manager.get_image_files()
         hash_dict = defaultdict(list)
 
         for image_file in self.image_files:
@@ -70,10 +59,10 @@ class ImagesCleaner:
             if len(duplicates) > 1:
                 print(f"Duplicate images found: {duplicates}. Deleting...")
                 for duplicate in duplicates[1:]:
-                    self.delete_file(duplicate)
+                    self.file_manager.delete_file(duplicate, save_deleted=self.save_deleted)
 
     def delete_mirror_duplicates(self, flip_direction='horizontal'):
-        self.image_files = self.get_image_files()
+        self.image_files = self.file_manager.get_image_files()
         hash_dict = defaultdict(list)
 
         for image_file in self.image_files:
@@ -111,7 +100,7 @@ class ImagesCleaner:
                 files_to_delete = [file for file in duplicates if file != shortest_file]
 
                 for duplicate in files_to_delete:
-                    self.delete_file(duplicate)
+                    self.file_manager.delete_file(duplicate, save_deleted=self.save_deleted)
 
     @staticmethod
     def calculate_image_hash(image_path):
@@ -123,39 +112,14 @@ class ImagesCleaner:
             print(f"Error processing {image_path}: {e}")
             return None
 
-    def delete_file(self, file_path, max_retries=3, retry_delay=1):
-        retries = 0
-        while retries < max_retries:
-            try:
-                if os.path.exists(file_path):
-
-                    if self.save_deleted:
-                        deleted_folder = os.path.join(self.directory, 'deleted')
-                        os.makedirs(deleted_folder, exist_ok=True)
-                        file_name = os.path.basename(file_path)
-                        deleted_file_path = os.path.join(deleted_folder, file_name)
-                        shutil.copyfile(file_path, deleted_file_path)
-
-                    os.remove(file_path)
-                    break
-                else:
-                    print(f"File {file_path} not found.")
-                    break
-            except PermissionError:
-                retries += 1
-                print(f"PermissionError: Failed to delete {file_path}. Retrying ({retries}/{max_retries})...")
-                time.sleep(retry_delay)
-        else:
-            print(f"Error: Could not delete {file_path} after {max_retries} retries.")
-
-    def run(self, find_and_delete_trash_images=True, white_images=True, black_images=True,
+    def run(self, find_and_delete_one_color_images=True,
             delete_small_images=True, min_width=70, min_height=70,
             delete_duplicates=True,
             delete_mirror_duplicates_horizontal=True,
             delete_mirror_duplicates_vertical=True,
             delete_mirror_duplicates_vertical_horizontal=True):
-        if find_and_delete_trash_images:
-            self.find_and_delete_trash_images(white_images, black_images)
+        if find_and_delete_one_color_images:
+            self.find_and_delete_one_color_images()
         if delete_small_images:
             self.find_and_delete_small_images(min_width, min_height)
         if delete_duplicates:

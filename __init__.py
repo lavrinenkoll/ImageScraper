@@ -34,17 +34,12 @@ class Main:
         cleaner = ImagesCleaner(directory=directory_path,
                                 save_deleted=True)
 
-        cleaner.run(find_and_delete_trash_images=True, white_images=True, black_images=True,
+        cleaner.run(find_and_delete_one_color_images=True,
                     delete_small_images=True, min_width=60, min_height=60,
                     delete_duplicates=True,
                     delete_mirror_duplicates_horizontal=True,
                     delete_mirror_duplicates_vertical=True,
                     delete_mirror_duplicates_vertical_horizontal=True)
-
-        cleaner.get_image_files()
-        count_after_cleaning = len(list(Path(directory_path).rglob('*')))
-        print(f"Number of images before cleaning: {count_before_cleaning}")
-        print(f"Number of images after cleaning: {count_after_cleaning}")
 
 
 if __name__ == '__main__':
