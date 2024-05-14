@@ -14,6 +14,17 @@ class ImagesCleaner:
         self.save_deleted = save_deleted
         self.image_files = []
 
+    def find_and_delete_defective_images(self):
+        self.image_files = self.file_manager.get_image_files(self.directory)
+        for image_file in self.image_files:
+            print(f"Processing file: {image_file}")
+            try:
+                with Image.open(image_file) as img:
+                    img.verify()
+            except (IOError, OSError, ValueError) as e:
+                print(f"Error processing {image_file}: {e} Deleting...")
+                self.file_manager.delete_file(image_file, save_deleted=self.save_deleted)
+
     def find_and_delete_one_color_images(self):
         self.image_files = self.file_manager.get_image_files(self.directory)
         for image_file in self.image_files:
@@ -119,6 +130,7 @@ class ImagesCleaner:
             delete_mirror_duplicates_horizontal=True,
             delete_mirror_duplicates_vertical=True,
             delete_mirror_duplicates_vertical_horizontal=True):
+        self.find_and_delete_defective_images()
         if find_and_delete_one_color_images:
             self.find_and_delete_one_color_images()
         if delete_small_images:

@@ -1,4 +1,5 @@
 import os
+import random
 import shutil
 import time
 from io import BytesIO
@@ -80,7 +81,11 @@ class FileManager:
             response = requests.get(url)
             img = Image.open(BytesIO(response.content))
             os.makedirs(path, exist_ok=True)
-            img.save(f"{path}/{url.split('/')[-1]}")
+            if len(url.split('/')[-1]) < 7:
+                random_code = str(random.randint(1, 99999))
+                img.save(f"{path}/{url.split('/')[-1].split('.')[0]}_{random_code}.{url.split('.')[-1]}")
+            else:
+                img.save(f"{path}/{url.split('/')[-1]}")
             print(f"Succesfully processed image {url}")
         except Exception as e:
             print(f"Error processing image {url}: {e}")

@@ -6,6 +6,7 @@ from scrapers_img.img_site_scraper import ImagesFromSiteScraper
 class MainScraper:
     def __init__(self):
         self.scraper = ImagesFromSiteScraper()
+        self.processed_urls = set()  # Track processed URLs
 
     def run(self, all_links, query):
         num_threads = 10
@@ -35,7 +36,11 @@ class MainScraper:
 
     def process_url(self, url, query):
         try:
-            self.scraper.scrape(url)
-            self.scraper.save_images(f"imgs/{query}")
+            if url not in self.processed_urls:
+                self.scraper.scrape(url)
+                self.scraper.save_images(f"imgs/{query}")
+                self.processed_urls.add(url)
+            else:
+                print(f"Skipping duplicate URL: {url}")
         except Exception as e:
             print(f"Error processing {url}: {e}")

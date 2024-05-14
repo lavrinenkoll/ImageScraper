@@ -1,7 +1,7 @@
 from concurrent.futures import ThreadPoolExecutor
 
-from parsers.parsers_search.bing_parser import BingModelParser
-from parsers.parsers_search.google_parser import GoogleModelParser
+from parsers.bing_parser import BingModelParser
+from parsers.google_parser import GoogleModelParser
 from tools.file_manager import FileManager
 
 

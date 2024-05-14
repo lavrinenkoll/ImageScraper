@@ -15,9 +15,9 @@ class Main:
     def run():
         str_result = ""
 
-        query = "топ пород котів"
-        n_pages_bing = 1
-        n_pages_google = 1
+        query = "top cat breeds"
+        n_pages_bing = 30
+        n_pages_google = 30
         options = webdriver.ChromeOptions()
         options.add_argument('--ignore-certificate-errors')
         options.add_argument('--incognito')
@@ -59,9 +59,15 @@ class Main:
         # time_end = time.time()
         # str_result += f"Time spent on normalizing: {time_end - time_start} seconds\n"
 
+        # time_start = time.time()
+        # imgs_cataloger = ImagesCataloger(directory=directory_path)
+        # imgs_cataloger.split_images_by_tags_resnet()
+        # time_end = time.time()
+        # str_result += f"Time spent on cataloging: {time_end - time_start} seconds\n"
+
         time_start = time.time()
         imgs_cataloger = ImagesCataloger(directory=directory_path)
-        imgs_cataloger.split_images_by_tags_resnet()
+        imgs_cataloger.split_images_by_resolution_auto()
         time_end = time.time()
         str_result += f"Time spent on cataloging: {time_end - time_start} seconds\n"
 

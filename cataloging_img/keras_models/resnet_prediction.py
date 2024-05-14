@@ -64,8 +64,8 @@ class ResNetPrediction:
         statistics = self.statistics()
 
         length = len(self.predictions)
-        threshold = (length // 100) * 5
-        threshold = 5 if threshold == 0 else threshold
+        threshold = length // 100
+        threshold = 10 if length < 100 else threshold
         threshold = 1 if length < 10 else threshold
 
         tags_to_keep = [tag for tag in statistics if statistics[tag] >= threshold]
