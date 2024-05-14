@@ -14,18 +14,18 @@ class ImagesCataloger:
     def __init__(self, directory):
         self.directory = directory
         self.extensions = ('.jpg', '.jpeg', '.png', '.JPG', '.JPEG', '.PNG')
-        self.file_manager = FileManager(directory)
-        self.image_files = self.file_manager.get_image_files()
+        self.file_manager = FileManager()
+        self.image_files = self.file_manager.get_image_files(directory)
 
         self.resnet_predictor = ResNetPrediction(directory)
         self.mobilenet_predictor = MobileNetV2Prediction(directory)
 
     def extract_images_from_folders(self):
         self.file_manager.extract_images_from_folders(self.directory)
-        self.image_files = self.file_manager.get_image_files()
+        self.image_files = self.file_manager.get_image_files(self.directory)
 
     def split_images_by_resolution(self, list_resolutions):
-        self.image_files = self.file_manager.get_image_files()
+        self.image_files = self.file_manager.get_image_files(self.directory)
 
         folder_files_map = {}
 
@@ -55,7 +55,7 @@ class ImagesCataloger:
         self.image_files = [f for f in self.image_files if f not in files_to_move]
 
     def calculate_resolutions(self, max_clusters=10):
-        self.image_files = self.file_manager.get_image_files()
+        self.image_files = self.file_manager.get_image_files(self.directory)
         sizes = []
 
         for image_file in self.image_files:
@@ -114,7 +114,7 @@ class ImagesCataloger:
         self.split_images_by_resolution(resolutions)
 
     def split_images_by_file_size(self, list_file_sizes):
-        self.image_files = self.file_manager.get_image_files()
+        self.image_files = self.file_manager.get_image_files(self.directory)
 
         folder_files_map = {}
 
@@ -145,7 +145,7 @@ class ImagesCataloger:
         self.image_files = [f for f in self.image_files if f not in files_to_move]
 
     def calculate_file_sizes(self, max_clusters=10):
-        self.image_files = self.file_manager.get_image_files()
+        self.image_files = self.file_manager.get_image_files(self.directory)
         file_sizes = []
 
         for image_file in self.image_files:
@@ -224,8 +224,10 @@ class ImagesCataloger:
             return float(file_size_text[:-1])
 
     def split_images_by_tags_resnet(self):
-        self.resnet_predictor.sort_files_by_tags()
+        files_by_tags = self.resnet_predictor.sort_files_by_tags()
+        self.file_manager.move_files_to_folders(files_by_tags)
 
     def split_images_by_tags_mobilenet(self):
-        self.mobilenet_predictor.sort_files_by_tags()
+        files_by_tags = self.mobilenet_predictor.sort_files_by_tags()
+        self.file_manager.move_files_to_folders(files_by_tags)
 

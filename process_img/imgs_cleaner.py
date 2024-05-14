@@ -2,6 +2,7 @@ import os
 import imagehash
 from PIL import Image, ImageOps
 from collections import defaultdict
+
 from tools.file_manager import FileManager
 
 
@@ -9,12 +10,12 @@ class ImagesCleaner:
     def __init__(self, directory, save_deleted=False):
         self.directory = directory
         self.extensions = ('.jpg', '.jpeg', '.png', '.JPG', '.JPEG', '.PNG')
-        self.file_manager = FileManager(directory)
+        self.file_manager = FileManager()
         self.save_deleted = save_deleted
         self.image_files = []
 
     def find_and_delete_one_color_images(self):
-        self.image_files = self.file_manager.get_image_files()
+        self.image_files = self.file_manager.get_image_files(self.directory)
         for image_file in self.image_files:
             print(f"Processing file: {image_file}")
             try:
@@ -31,7 +32,7 @@ class ImagesCleaner:
                 print(f"Error processing {image_file}: {e}")
 
     def find_and_delete_small_images(self, min_width=50, min_height=50):
-        self.image_files = self.file_manager.get_image_files()
+        self.image_files = self.file_manager.get_image_files(self.directory)
         for image_file in self.image_files:
             print(f"Processing file: {image_file}")
             try:
@@ -40,12 +41,12 @@ class ImagesCleaner:
                     if width < min_width or height < min_height:
                         print(f"Image is too small: {image_file}. Deleting...")
                         img.close()
-                        self.file_manager.delete_file(image_file)
+                        self.file_manager.delete_file(image_file, save_deleted=self.save_deleted)
             except (IOError, OSError, ValueError) as e:
                 print(f"Error processing {image_file}: {e}")
 
     def find_and_delete_duplicates(self):
-        self.image_files = self.file_manager.get_image_files()
+        self.image_files = self.file_manager.get_image_files(self.directory)
         hash_dict = defaultdict(list)
 
         for image_file in self.image_files:
@@ -62,7 +63,7 @@ class ImagesCleaner:
                     self.file_manager.delete_file(duplicate, save_deleted=self.save_deleted)
 
     def delete_mirror_duplicates(self, flip_direction='horizontal'):
-        self.image_files = self.file_manager.get_image_files()
+        self.image_files = self.file_manager.get_image_files(self.directory)
         hash_dict = defaultdict(list)
 
         for image_file in self.image_files:

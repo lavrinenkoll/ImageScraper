@@ -1,6 +1,5 @@
 import queue
 import threading
-
 from scrapers_img.img_site_scraper import ImagesFromSiteScraper
 
 
@@ -17,25 +16,26 @@ class MainScraper:
 
         threads = []
         for _ in range(num_threads):
-            thread = threading.Thread(target=self.worker, args=(work_queue, self.scraper, query))
+            thread = threading.Thread(target=self.worker, args=(work_queue, query))
             thread.start()
             threads.append(thread)
 
         for thread in threads:
             thread.join()
 
-    def worker(self, work_queue, scraper, query):
-        while not work_queue.empty():
+    def worker(self, work_queue, query):
+        while True:
             try:
-                url = work_queue.get_nowait()
-                self.process_url(url, scraper, query)
+                url = work_queue.get(timeout=1)
+                self.process_url(url, query)
             except queue.Empty:
                 break
+            except Exception as e:
+                print(f"Error in worker thread: {e}")
 
-    @staticmethod
-    def process_url(url, scraper, query):
+    def process_url(self, url, query):
         try:
-            scraper.scrape(url)
-            scraper.save_images(f"imgs/{query}")
+            self.scraper.scrape(url)
+            self.scraper.save_images(f"imgs/{query}")
         except Exception as e:
             print(f"Error processing {url}: {e}")

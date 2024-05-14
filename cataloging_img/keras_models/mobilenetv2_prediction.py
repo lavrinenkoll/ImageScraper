@@ -10,8 +10,8 @@ from tools.file_manager import FileManager
 
 class MobileNetV2Prediction:
     def __init__(self, directory):
+        self.directory = directory
         self.model = MobileNetV2(weights='imagenet')
-        self.file_manager = FileManager(directory)
         self.predictions = []
 
     def predict(self, img_path):
@@ -26,7 +26,7 @@ class MobileNetV2Prediction:
         return decoded_predictions
 
     def predict_multiple(self):
-        img_paths = self.file_manager.get_image_files()
+        img_paths = FileManager().get_image_files(self.directory)
 
         predictions = []
         for img_path in img_paths:
@@ -62,40 +62,46 @@ class MobileNetV2Prediction:
         statistics = self.statistics()
 
         length = len(self.predictions)
-        threshold = length // 100
+        threshold = (length // 100) * 5
+        threshold = 5 if threshold == 0 else threshold
+        threshold = 1 if length < 10 else threshold
 
         tags_to_keep = [tag for tag in statistics if statistics[tag] >= threshold]
 
         folder_files_map = {}
+        others_dir = os.path.join(self.directory, "OTHERS")
 
-        directory = self.file_manager.directory
         for tag, value in statistics.items():
             if tag in tags_to_keep:
-                tag_dir = os.path.join(directory, f"{tag}_{value}")
+                tag_dir = os.path.join(self.directory, f"{tag}_{value}")
                 folder_files_map[tag_dir] = []
+            else:
+                tag_other_dir = os.path.join(others_dir, f"{tag}_{value}")
+                if not os.path.exists(tag_other_dir):
+                    os.makedirs(tag_other_dir)
+                if tag_other_dir not in folder_files_map:
+                    folder_files_map[tag_other_dir] = []
 
-        others_dir = os.path.join(directory, "OTHERS")
-        folder_files_map[others_dir] = []
-
-        image_files = self.file_manager.get_image_files()
+        image_files = FileManager().get_image_files(self.directory)
         for img_path, prediction in zip(image_files, self.predictions):
             tag = prediction[0][1]
-            dest_dir = os.path.join(directory, f"{tag}_{statistics.get(tag, 'UNKNOWN')}")
+            dest_dir = os.path.join(self.directory, f"{tag}_{statistics.get(tag, 'UNKNOWN')}")
 
             if os.path.exists(img_path):
                 if tag in tags_to_keep:
                     folder_files_map[dest_dir].append(img_path)
                 else:
-                    folder_files_map[others_dir].append(img_path)
+                    tag_other_dir = os.path.join(others_dir, f"{tag}_{statistics.get(tag, 'UNKNOWN')}")
+                    if tag_other_dir in folder_files_map:
+                        folder_files_map[tag_other_dir].append(img_path)
+                    else:
+                        os.makedirs(tag_other_dir)
+                        folder_files_map[tag_other_dir] = [img_path]
             else:
                 print(f"File not found: {img_path}")
 
-        self.file_manager.move_files_to_folders(folder_files_map)
+        return folder_files_map
 
 
-if __name__ == '__main__':
-    dir_path = "C:\Workspace\diplom\parser\imgs\Leopard 2 tank photos"
-    resnet = MobileNetV2Prediction(dir_path)
-    resnet.sort_files_by_tags()
 
 

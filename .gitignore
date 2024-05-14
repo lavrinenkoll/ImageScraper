@@ -4,6 +4,7 @@ test2.py
 test3.py
 *.png
 links/
+trash/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

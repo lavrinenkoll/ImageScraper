@@ -3,11 +3,13 @@ from io import BytesIO
 import requests
 from PIL import Image
 from bs4 import BeautifulSoup
+from tools.file_manager import FileManager
 
 
 class ImagesFromSiteScraper:
     def __init__(self):
         self.images = []
+        self.file_manager = FileManager()
 
     def scrape(self, url):
         self.images = []
@@ -41,11 +43,4 @@ class ImagesFromSiteScraper:
             if not image_url.lower().endswith(('.jpg', '.jpeg', '.png')):
                 continue
 
-            try:
-                response = requests.get(image_url)
-                img = Image.open(BytesIO(response.content))
-                os.makedirs(path, exist_ok=True)
-                img.save(f"{path}/{i}_{image_url.split('/')[-1]}")
-                print(f"Succesfully processed image {image_url}")
-            except Exception as e:
-                print(f"Error processing image {image_url}: {e}")
+            self.file_manager.save_img_from_url(image_url, path)

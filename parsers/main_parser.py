@@ -1,8 +1,8 @@
 from concurrent.futures import ThreadPoolExecutor
-from pathlib import Path
 
-from parsers_search.bing_parser import BingSearchParser
-from parsers_search.google_parser import GoogleSearchParser
+from parsers.parsers_search.bing_parser import BingModelParser
+from parsers.parsers_search.google_parser import GoogleModelParser
+from tools.file_manager import FileManager
 
 
 class MainParser:
@@ -14,8 +14,10 @@ class MainParser:
         self.n_pages_bing = n_pages_bing
         self.all_links = []
 
-        self.bing_parser = BingSearchParser(self.driver_bing)
-        self.google_parser = GoogleSearchParser(self.driver_google)
+        self.bing_parser = BingModelParser(self.driver_bing)
+        self.google_parser = GoogleModelParser(self.driver_google)
+
+        self.file_manager = FileManager()
 
     def parse(self, path_to_save=None):
         self.all_links = []
@@ -33,19 +35,7 @@ class MainParser:
             self.all_links = [link for link in self.all_links if link is not None]
             self.all_links = list(set(self.all_links))
 
-            if path_to_save is not None:
-                Path(path_to_save).mkdir(parents=True, exist_ok=True)
-
-            if path_to_save is not None:
-                with open(f"{path_to_save}/{self.query}.txt", 'w') as f:
-                    for link in self.all_links:
-                        if link is not None:
-                            f.write(link + '\n')
-            else:
-                with open(f"{self.query}.txt", 'w') as f:
-                    for link in self.all_links:
-                        if link is not None:
-                            f.write(link + '\n')
+            self.file_manager.save_links_to_file(self.all_links, self.query + " _ sites", path_to_save)
 
         return self.all_links
 
