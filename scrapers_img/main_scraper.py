@@ -8,7 +8,7 @@ class MainScraper:
         self.scraper = ImagesFromSiteScraper()
         self.processed_urls = set()  # Track processed URLs
 
-    def run(self, all_links, query):
+    def run(self, all_links, query, path):
         num_threads = 10
         work_queue = queue.Queue()
 
@@ -17,28 +17,28 @@ class MainScraper:
 
         threads = []
         for _ in range(num_threads):
-            thread = threading.Thread(target=self.worker, args=(work_queue, query))
+            thread = threading.Thread(target=self.worker, args=(work_queue, query, path))
             thread.start()
             threads.append(thread)
 
         for thread in threads:
             thread.join()
 
-    def worker(self, work_queue, query):
+    def worker(self, work_queue, query, path):
         while True:
             try:
                 url = work_queue.get(timeout=1)
-                self.process_url(url, query)
+                self.process_url(url, query, path)
             except queue.Empty:
                 break
             except Exception as e:
                 print(f"Error in worker thread: {e}")
 
-    def process_url(self, url, query):
+    def process_url(self, url, query, path):
         try:
             if url not in self.processed_urls:
                 self.scraper.scrape(url)
-                self.scraper.save_images(f"imgs/{query}")
+                self.scraper.save_images(f"{path}/{query}")
                 self.processed_urls.add(url)
             else:
                 print(f"Skipping duplicate URL: {url}")

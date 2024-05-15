@@ -231,3 +231,21 @@ class ImagesCataloger:
         files_by_tags = self.mobilenet_predictor.sort_files_by_tags()
         self.file_manager.move_files_to_folders(files_by_tags)
 
+    def start(self, flag_sizes_manual, sizes_manual, flag_sizes_auto,
+                flag_sizes_file_manual, sizes_file_manual, flag_sizes_file_auto,
+                flag_tags_resnet, flag_tags_mobilenet):
+        if flag_sizes_manual:
+            list_resolutions = [(tuple(map(int, size.split('x')) for size in sizes_manual.split(',')))]
+            self.split_images_by_resolution(list_resolutions)
+        elif flag_sizes_auto:
+            self.split_images_by_resolution_auto()
+        elif flag_sizes_file_manual:
+            list_file_sizes = [(size.split('-') for size in sizes_file_manual.split(','))]
+            self.split_images_by_file_size(list_file_sizes)
+        elif flag_sizes_file_auto:
+            self.split_images_by_file_size_auto()
+        elif flag_tags_resnet:
+            self.split_images_by_tags_resnet()
+        elif flag_tags_mobilenet:
+            self.split_images_by_tags_mobilenet()
+

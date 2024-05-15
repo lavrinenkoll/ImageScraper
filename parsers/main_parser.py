@@ -35,7 +35,8 @@ class MainParser:
             self.all_links = [link for link in self.all_links if link is not None]
             self.all_links = list(set(self.all_links))
 
-            self.file_manager.save_links_to_file(self.all_links, self.query + " _ sites", path_to_save)
+            if path_to_save is not None:
+                self.file_manager.save_links_to_file(self.all_links, self.query + " _ sites", path_to_save)
 
         return self.all_links
 
