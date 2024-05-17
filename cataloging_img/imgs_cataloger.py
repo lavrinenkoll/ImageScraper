@@ -1,4 +1,6 @@
+import ast
 import os
+import re
 from collections import defaultdict
 import numpy as np
 from PIL import Image
@@ -235,17 +237,30 @@ class ImagesCataloger:
                 flag_sizes_file_manual, sizes_file_manual, flag_sizes_file_auto,
                 flag_tags_resnet, flag_tags_mobilenet):
         if flag_sizes_manual:
-            list_resolutions = [(tuple(map(int, size.split('x')) for size in sizes_manual.split(',')))]
-            self.split_images_by_resolution(list_resolutions)
+            self.split_images_by_resolution(sizes_manual)
         elif flag_sizes_auto:
             self.split_images_by_resolution_auto()
         elif flag_sizes_file_manual:
-            list_file_sizes = [(size.split('-') for size in sizes_file_manual.split(','))]
-            self.split_images_by_file_size(list_file_sizes)
+            self.split_images_by_file_size(sizes_file_manual)
         elif flag_sizes_file_auto:
             self.split_images_by_file_size_auto()
         elif flag_tags_resnet:
             self.split_images_by_tags_resnet()
         elif flag_tags_mobilenet:
             self.split_images_by_tags_mobilenet()
+
+    @staticmethod
+    def str_to_resolutions(str_resolutions):
+        input_str = str_resolutions
+        data = ast.literal_eval(input_str)
+        list_resolutions = [list(sublist) for sublist in data]
+        return list_resolutions
+
+    def str_to_file_sizes(self, str_file_sizes):
+        list_file_sizes = []
+        for file_size in re.findall(r'\((.*?)\)', str_file_sizes):
+            min_size, max_size = file_size.split(',')
+            list_file_sizes.append((self.get_file_size_from_text(min_size), self.get_file_size_from_text(max_size)))
+
+        return list_file_sizes
 

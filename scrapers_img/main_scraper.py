@@ -6,7 +6,7 @@ from scrapers_img.img_site_scraper import ImagesFromSiteScraper
 class MainScraper:
     def __init__(self):
         self.scraper = ImagesFromSiteScraper()
-        self.processed_urls = set()  # Track processed URLs
+        self.processed_urls = set()
 
     def run(self, all_links, query, path):
         num_threads = 10
@@ -34,13 +34,21 @@ class MainScraper:
             except Exception as e:
                 print(f"Error in worker thread: {e}")
 
-    def process_url(self, url, query, path):
+    def process_url(self, url, query, path, timeout=15):
         try:
             if url not in self.processed_urls:
+                timer = threading.Timer(timeout, self.handle_timeout, args=(url,))
+                timer.start()
+
                 self.scraper.scrape(url)
                 self.scraper.save_images(f"{path}/{query}")
+
+                timer.cancel()
                 self.processed_urls.add(url)
             else:
                 print(f"Skipping duplicate URL: {url}")
         except Exception as e:
             print(f"Error processing {url}: {e}")
+
+    def handle_timeout(self, url):
+        print(f"Timeout reached while processing {url}. Skipping to next link.")

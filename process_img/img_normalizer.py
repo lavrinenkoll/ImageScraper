@@ -98,3 +98,8 @@ class ImagesNormalizer:
         return normalized_img
 
 
+normalize = ImagesNormalizer()
+normalize.normalize_images('C:\Workspace\diplom\parser\imgs\топ порід котів')
+
+
+

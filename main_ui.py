@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'untitled5.ui'
+## Form generated from reading UI file 'untitled6.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.7.0
 ##
@@ -9,25 +9,26 @@
 ################################################################################
 
 from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
-    QMetaObject, QObject, QPoint, QRect,
-    QSize, QTime, QUrl, Qt)
+                            QMetaObject, QObject, QPoint, QRect,
+                            QSize, QTime, QUrl, Qt)
 from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
-    QFont, QFontDatabase, QGradient, QIcon,
-    QImage, QKeySequence, QLinearGradient, QPainter,
-    QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QCheckBox, QDialog, QHBoxLayout,
-    QLabel, QLayout, QLineEdit, QPushButton,
-    QRadioButton, QSizePolicy, QSpinBox, QTabWidget,
-    QVBoxLayout, QWidget)
+                           QFont, QFontDatabase, QGradient, QIcon,
+                           QImage, QKeySequence, QLinearGradient, QPainter,
+                           QPalette, QPixmap, QRadialGradient, QTransform)
+from PySide6.QtWidgets import (QApplication, QCheckBox, QDialog, QFrame,
+                               QHBoxLayout, QLabel, QLayout, QLineEdit,
+                               QPushButton, QRadioButton, QSizePolicy, QSpinBox,
+                               QTabWidget, QVBoxLayout, QWidget)
+
 
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         if not Dialog.objectName():
             Dialog.setObjectName(u"Dialog")
-        Dialog.resize(901, 521)
+        Dialog.resize(903, 453)
         self.tabWidget = QTabWidget(Dialog)
         self.tabWidget.setObjectName(u"tabWidget")
-        self.tabWidget.setGeometry(QRect(0, 0, 901, 521))
+        self.tabWidget.setGeometry(QRect(0, 0, 901, 451))
         sizePolicy = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -37,7 +38,7 @@ class Ui_Dialog(object):
         self.tab.setObjectName(u"tab")
         self.verticalLayoutWidget_7 = QWidget(self.tab)
         self.verticalLayoutWidget_7.setObjectName(u"verticalLayoutWidget_7")
-        self.verticalLayoutWidget_7.setGeometry(QRect(0, 0, 894, 489))
+        self.verticalLayoutWidget_7.setGeometry(QRect(0, 0, 891, 425))
         self.verticalLayout_8 = QVBoxLayout(self.verticalLayoutWidget_7)
         self.verticalLayout_8.setObjectName(u"verticalLayout_8")
         self.verticalLayout_8.setContentsMargins(0, 0, 0, 0)
@@ -73,7 +74,7 @@ class Ui_Dialog(object):
         self.label_5.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.label_5.setWordWrap(False)
 
-        self.verticalLayout_4.addWidget(self.label_5, 0, Qt.AlignmentFlag.AlignHCenter|Qt.AlignmentFlag.AlignVCenter)
+        self.verticalLayout_4.addWidget(self.label_5, 0, Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignVCenter)
 
         self.horizontalLayout_8 = QHBoxLayout()
         self.horizontalLayout_8.setObjectName(u"horizontalLayout_8")
@@ -88,7 +89,6 @@ class Ui_Dialog(object):
         self.spinBox_google_main.setMaximum(999)
 
         self.horizontalLayout_8.addWidget(self.spinBox_google_main)
-
 
         self.verticalLayout_4.addLayout(self.horizontalLayout_8)
 
@@ -106,7 +106,6 @@ class Ui_Dialog(object):
         self.spinBox_bing_main.setMaximum(999)
 
         self.horizontalLayout_9.addWidget(self.spinBox_bing_main)
-
 
         self.verticalLayout_4.addLayout(self.horizontalLayout_9)
 
@@ -145,11 +144,16 @@ class Ui_Dialog(object):
 
         self.horizontalLayout_11.addWidget(self.pushButton_path_directory_file_main)
 
-
         self.verticalLayout_4.addLayout(self.horizontalLayout_11)
 
-
         self.horizontalLayout.addLayout(self.verticalLayout_4)
+
+        self.line = QFrame(self.verticalLayoutWidget_7)
+        self.line.setObjectName(u"line")
+        self.line.setFrameShape(QFrame.Shape.VLine)
+        self.line.setFrameShadow(QFrame.Shadow.Sunken)
+
+        self.horizontalLayout.addWidget(self.line)
 
         self.verticalLayout = QVBoxLayout()
         self.verticalLayout.setObjectName(u"verticalLayout")
@@ -178,8 +182,35 @@ class Ui_Dialog(object):
 
         self.horizontalLayout_12.addWidget(self.pushButton_path_directory_img_main)
 
-
         self.verticalLayout.addLayout(self.horizontalLayout_12)
+
+        self.line_3 = QFrame(self.verticalLayoutWidget_7)
+        self.line_3.setObjectName(u"line_3")
+        self.line_3.setFrameShape(QFrame.Shape.HLine)
+        self.line_3.setFrameShadow(QFrame.Shadow.Sunken)
+
+        self.verticalLayout.addWidget(self.line_3)
+
+        self.horizontalLayout_4 = QHBoxLayout()
+        self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
+        self.label_6 = QLabel(self.verticalLayoutWidget_7)
+        self.label_6.setObjectName(u"label_6")
+
+        self.horizontalLayout_4.addWidget(self.label_6, 0, Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter)
+
+        self.checkBox_normalization_main = QCheckBox(self.verticalLayoutWidget_7)
+        self.checkBox_normalization_main.setObjectName(u"checkBox_normalization_main")
+
+        self.horizontalLayout_4.addWidget(self.checkBox_normalization_main, 0, Qt.AlignmentFlag.AlignHCenter)
+
+        self.verticalLayout.addLayout(self.horizontalLayout_4)
+
+        self.line_4 = QFrame(self.verticalLayoutWidget_7)
+        self.line_4.setObjectName(u"line_4")
+        self.line_4.setFrameShape(QFrame.Shape.HLine)
+        self.line_4.setFrameShadow(QFrame.Shadow.Sunken)
+
+        self.verticalLayout.addWidget(self.line_4)
 
         self.label_9 = QLabel(self.verticalLayoutWidget_7)
         self.label_9.setObjectName(u"label_9")
@@ -221,7 +252,6 @@ class Ui_Dialog(object):
 
         self.horizontalLayout_13.addWidget(self.spinBox_small_heigth_main)
 
-
         self.verticalLayout_6.addLayout(self.horizontalLayout_13)
 
         self.checkBox_dublicates_main = QCheckBox(self.verticalLayoutWidget_7)
@@ -229,26 +259,16 @@ class Ui_Dialog(object):
 
         self.verticalLayout_6.addWidget(self.checkBox_dublicates_main)
 
-        self.checkBox_dublicate_horizontal_main = QCheckBox(self.verticalLayoutWidget_7)
-        self.checkBox_dublicate_horizontal_main.setObjectName(u"checkBox_dublicate_horizontal_main")
-
-        self.verticalLayout_6.addWidget(self.checkBox_dublicate_horizontal_main)
-
-        self.checkBox_dublicate_vertical_main = QCheckBox(self.verticalLayoutWidget_7)
-        self.checkBox_dublicate_vertical_main.setObjectName(u"checkBox_dublicate_vertical_main")
-
-        self.verticalLayout_6.addWidget(self.checkBox_dublicate_vertical_main)
-
-        self.checkBox_dublicate_horizontal_vertical_main = QCheckBox(self.verticalLayoutWidget_7)
-        self.checkBox_dublicate_horizontal_vertical_main.setObjectName(u"checkBox_dublicate_horizontal_vertical_main")
-
-        self.verticalLayout_6.addWidget(self.checkBox_dublicate_horizontal_vertical_main)
-
-
         self.verticalLayout.addLayout(self.verticalLayout_6)
 
-
         self.horizontalLayout.addLayout(self.verticalLayout)
+
+        self.line_2 = QFrame(self.verticalLayoutWidget_7)
+        self.line_2.setObjectName(u"line_2")
+        self.line_2.setFrameShape(QFrame.Shape.VLine)
+        self.line_2.setFrameShadow(QFrame.Shadow.Sunken)
+
+        self.horizontalLayout.addWidget(self.line_2)
 
         self.verticalLayout_7 = QVBoxLayout()
         self.verticalLayout_7.setObjectName(u"verticalLayout_7")
@@ -293,6 +313,11 @@ class Ui_Dialog(object):
 
         self.verticalLayout_7.addWidget(self.lineEdit_sizes_main)
 
+        self.radioButton_catalog_file_sizes_auto_main = QRadioButton(self.verticalLayoutWidget_7)
+        self.radioButton_catalog_file_sizes_auto_main.setObjectName(u"radioButton_catalog_file_sizes_auto_main")
+
+        self.verticalLayout_7.addWidget(self.radioButton_catalog_file_sizes_auto_main)
+
         self.radioButton_catalog_file_sizes_main = QRadioButton(self.verticalLayoutWidget_7)
         self.radioButton_catalog_file_sizes_main.setObjectName(u"radioButton_catalog_file_sizes_main")
 
@@ -312,11 +337,6 @@ class Ui_Dialog(object):
 
         self.verticalLayout_7.addWidget(self.lineEdit_sizes_files_main)
 
-        self.radioButton_catalog_file_sizes_auto_main = QRadioButton(self.verticalLayoutWidget_7)
-        self.radioButton_catalog_file_sizes_auto_main.setObjectName(u"radioButton_catalog_file_sizes_auto_main")
-
-        self.verticalLayout_7.addWidget(self.radioButton_catalog_file_sizes_auto_main)
-
         self.radioButton_tags_resnet_main = QRadioButton(self.verticalLayoutWidget_7)
         self.radioButton_tags_resnet_main.setObjectName(u"radioButton_tags_resnet_main")
 
@@ -327,9 +347,7 @@ class Ui_Dialog(object):
 
         self.verticalLayout_7.addWidget(self.radioButton_tags_mob_main)
 
-
         self.horizontalLayout.addLayout(self.verticalLayout_7)
-
 
         self.verticalLayout_8.addLayout(self.horizontalLayout)
 
@@ -339,7 +357,6 @@ class Ui_Dialog(object):
         self.pushButton_start_main.setObjectName(u"pushButton_start_main")
 
         self.horizontalLayout_14.addWidget(self.pushButton_start_main)
-
 
         self.verticalLayout_8.addLayout(self.horizontalLayout_14)
 
@@ -375,7 +392,7 @@ class Ui_Dialog(object):
         self.label_2.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.label_2.setWordWrap(False)
 
-        self.verticalLayout_2.addWidget(self.label_2, 0, Qt.AlignmentFlag.AlignHCenter|Qt.AlignmentFlag.AlignVCenter)
+        self.verticalLayout_2.addWidget(self.label_2, 0, Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignVCenter)
 
         self.horizontalLayout_2 = QHBoxLayout()
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
@@ -390,7 +407,6 @@ class Ui_Dialog(object):
         self.spinBox.setMaximum(999)
 
         self.horizontalLayout_2.addWidget(self.spinBox)
-
 
         self.verticalLayout_2.addLayout(self.horizontalLayout_2)
 
@@ -409,9 +425,7 @@ class Ui_Dialog(object):
 
         self.horizontalLayout_3.addWidget(self.spinBox_2)
 
-
         self.verticalLayout_2.addLayout(self.horizontalLayout_3)
-
 
         self.horizontalLayout_5.addLayout(self.verticalLayout_2)
 
@@ -446,7 +460,6 @@ class Ui_Dialog(object):
 
         self.horizontalLayout_6.addWidget(self.pushButton_3)
 
-
         self.verticalLayout_3.addLayout(self.horizontalLayout_6)
 
         self.pushButton_2 = QPushButton(self.horizontalLayoutWidget_5)
@@ -459,8 +472,18 @@ class Ui_Dialog(object):
 
         self.verticalLayout_3.addWidget(self.pushButton_2)
 
-
         self.horizontalLayout_5.addLayout(self.verticalLayout_3)
+
+        self.button_stop = QPushButton(Dialog)
+        self.button_stop.setGeometry(QRect(0, 0, Dialog.width(), Dialog.height() // 2))
+        self.button_stop.setText('Зупинити')
+        self.button_stop.hide()
+
+        self.label = QLabel(Dialog)
+        self.label.setGeometry(0, 0, Dialog.width(), Dialog.height())
+        self.label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.label.setStyleSheet("background-color: white; color: black; font-size: 20px;")
+        self.label.hide()
 
         self.tabWidget.addTab(self.tab_2, "")
         self.tab_3 = QWidget()
@@ -480,78 +503,137 @@ class Ui_Dialog(object):
 
         self.tabWidget.setCurrentIndex(0)
 
-
         QMetaObject.connectSlotsByName(Dialog)
+
     # setupUi
 
     def retranslateUi(self, Dialog):
         Dialog.setWindowTitle(QCoreApplication.translate("Dialog", u"ImagesScraper", None))
-        self.label_4.setText(QCoreApplication.translate("Dialog", u"\u0412\u043a\u0430\u0436\u0456\u0442\u044c \u043f\u043e\u0448\u0443\u043a\u043e\u0432\u0438\u0439 \u0437\u0430\u043f\u0438\u0442", None))
+        self.label_4.setText(QCoreApplication.translate("Dialog",
+                                                        u"\u0412\u043a\u0430\u0436\u0456\u0442\u044c \u043f\u043e\u0448\u0443\u043a\u043e\u0432\u0438\u0439 \u0437\u0430\u043f\u0438\u0442",
+                                                        None))
         self.lineEdit_search_main.setText("")
-        self.lineEdit_search_main.setPlaceholderText(QCoreApplication.translate("Dialog", u"\u043f\u043e\u0448\u0443\u043a\u043e\u0432\u0438\u0439 \u0437\u0430\u043f\u0438\u0442", None))
+        self.lineEdit_search_main.setPlaceholderText(QCoreApplication.translate("Dialog",
+                                                                                u"\u043f\u043e\u0448\u0443\u043a\u043e\u0432\u0438\u0439 \u0437\u0430\u043f\u0438\u0442",
+                                                                                None))
         self.label_5.setText(QCoreApplication.translate("Dialog", u"\n"
-"\n"
-"\u041e\u0431\u0435\u0440\u0456\u0442\u044c \u043f\u043e\u0448\u0443\u043a\u043e\u0432\u0456 \u0441\u0438\u0441\u0442\u0435\u043c\u0438 \u0442\u0430 \n"
-"\u043a\u0456\u043b\u044c\u043a\u0456\u0441\u0442\u044c \u0441\u0442\u043e\u0440\u0456\u043d\u043e\u043a \u0434\u043b\u044f \u043e\u0431\u0440\u043e\u0431\u043a\u0438:", None))
+                                                                  "\n"
+                                                                  "\u041e\u0431\u0435\u0440\u0456\u0442\u044c \u043f\u043e\u0448\u0443\u043a\u043e\u0432\u0456 \u0441\u0438\u0441\u0442\u0435\u043c\u0438 \u0442\u0430 \n"
+                                                                  "\u043a\u0456\u043b\u044c\u043a\u0456\u0441\u0442\u044c \u0441\u0442\u043e\u0440\u0456\u043d\u043e\u043a \u0434\u043b\u044f \u043e\u0431\u0440\u043e\u0431\u043a\u0438:",
+                                                        None))
         self.checkBox_google_main.setText(QCoreApplication.translate("Dialog", u"Google", None))
         self.checkBox_bing_main.setText(QCoreApplication.translate("Dialog", u"Bing", None))
-        self.label_7.setText(QCoreApplication.translate("Dialog", u"\u0412\u043a\u0430\u0436\u0456\u0442\u044c \u0434\u0438\u0440\u0435\u043a\u0442\u043e\u0440\u0456\u044e \u0434\u043b\u044f \u0437\u0431\u0435\u0440\u0456\u0433\u0430\u043d\u043d\u044f\n"
-" \u0442\u0435\u043a\u0441\u0442\u043e\u0432\u043e\u0433\u043e \u0444\u0430\u0439\u043b\u0443 \n"
-"\u0437 \u043e\u0442\u0440\u0438\u043c\u0430\u043d\u0438\u043c\u0438 \u043f\u043e\u0441\u0438\u043b\u0430\u043d\u043d\u044f\u043c\u0438\n"
-"\u0430\u0431\u043e \u043f\u043e\u0441\u0442\u0430\u0432\u0442\u0435 \u0432\u0456\u0434\u043c\u0456\u0442\u043a\u0443", None))
-        self.checkBox_savefile.setText(QCoreApplication.translate("Dialog", u"\u041d\u0435 \u0437\u0431\u0435\u0440\u0456\u0433\u0430\u0442\u0438 \u0443 \u0444\u0430\u0439\u043b", None))
-        self.pushButton_path_directory_file_main.setText(QCoreApplication.translate("Dialog", u"\u041e\u0433\u043b\u044f\u0434", None))
-        self.label_8.setText(QCoreApplication.translate("Dialog", u"\u0412\u043a\u0430\u0436\u0456\u0442\u044c \u0434\u0438\u0440\u0435\u043a\u0442\u043e\u0440\u0456\u044e \u0434\u043b\u044f \u0437\u0431\u0435\u0440\u0456\u0433\u0430\u043d\u043d\u044f\n"
-" \u043e\u0442\u0440\u0438\u043c\u0430\u043d\u0438\u0445 \u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u044c", None))
-        self.pushButton_path_directory_img_main.setText(QCoreApplication.translate("Dialog", u"\u041e\u0433\u043b\u044f\u0434", None))
-        self.label_9.setText(QCoreApplication.translate("Dialog", u"\u041e\u0431\u0435\u0440\u0456\u0442\u044c \u0431\u0430\u0436\u0430\u043d\u0456 \u043d\u0430\u043b\u0430\u0448\u0442\u0443\u0432\u0430\u043d\u043d\u044f\n"
-"\u0434\u043b\u044f \u043e\u0447\u0438\u0449\u0435\u043d\u043d\u044f \u0441\u0435\u0442\u0443 \u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u044c\n"
-"(\u044f\u043a\u0449\u043e \u043d\u0435\u043c\u0430\u0454 \u043d\u0435\u043e\u0431\u0445\u0456\u0434\u043d\u043e\u0441\u0442\u0456 - \u043d\u0435 \u043e\u0431\u0438\u0440\u0430\u0442\u0438)", None))
-        self.checkBox_deletedsave_main.setText(QCoreApplication.translate("Dialog", u"\u0412\u0438\u0434\u0430\u043b\u0435\u043d\u0456 \u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u043d\u044f \u0437\u0431\u0435\u0440\u0435\u0433\u0442\u0438 \u0443 \u043f\u0430\u043f\u043a\u0443 deleted", None))
-        self.checkBox_one_color_main.setText(QCoreApplication.translate("Dialog", u"\u0412\u0438\u0434\u0430\u043b\u0438\u0442\u0438 \u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u043d\u044f \u043e\u0434\u043d\u043e\u0433\u043e \u043a\u043e\u043b\u044c\u043e\u0440\u0443", None))
-        self.checkBox_small_images_main.setText(QCoreApplication.translate("Dialog", u"\u0412\u0438\u0434\u0430\u043b\u0438\u0442\u0438 \u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u043d\u044f \u043c\u0430\u043b\u043e\u0433\u043e \u0440\u043e\u0437\u043c\u0456\u0440\u0443\n"
-"(\u0432\u043a\u0430\u0436\u0456\u0442\u044c \u0440\u043e\u0437\u043c\u0456\u0440\u0438 \u0448\u0438\u0440\u0438\u043d\u0430 * \u0432\u0438\u0441\u043e\u0442\u0430)", None))
-        self.checkBox_dublicates_main.setText(QCoreApplication.translate("Dialog", u"\u0412\u0438\u0434\u0430\u043b\u0438\u0442\u0438 \u043f\u0440\u044f\u043c\u0456 \u0434\u0443\u0431\u043b\u0456\u043a\u0430\u0442\u0438", None))
-        self.checkBox_dublicate_horizontal_main.setText(QCoreApplication.translate("Dialog", u"\u0412\u0438\u0434\u0430\u043b\u0438\u0442\u0438 \u0434\u0443\u0431\u043b\u0456\u043a\u0430\u0442\u0438 \u0432\u0456\u0434\u0437\u0435\u0440\u043a\u0430\u043b\u0435\u043d\u0456\n"
-"\u0433\u043e\u0440\u0438\u0437\u043e\u043d\u0442\u0430\u043b\u044c\u043d\u043e", None))
-        self.checkBox_dublicate_vertical_main.setText(QCoreApplication.translate("Dialog", u"\u0412\u0438\u0434\u0430\u043b\u0438\u0442\u0438 \u0434\u0443\u0431\u043b\u0456\u043a\u0430\u0442\u0438 \u0432\u0456\u0434\u0437\u0435\u0440\u043a\u0430\u043b\u0435\u043d\u0456\n"
-"\u0432\u0435\u0440\u0442\u0438\u043a\u0430\u043b\u044c\u043d\u043e", None))
-        self.checkBox_dublicate_horizontal_vertical_main.setText(QCoreApplication.translate("Dialog", u"\u0412\u0438\u0434\u0430\u043b\u0438\u0442\u0438 \u0434\u0443\u0431\u043b\u0456\u043a\u0430\u0442\u0438 \u0432\u0456\u0434\u0437\u0435\u0440\u043a\u0430\u043b\u0435\u043d\u0456\n"
-"\u0433\u043e\u0440\u0438\u0437\u043e\u043d\u0442\u0430\u043b\u044c\u043d\u043e \u0442\u0430 \u0432\u0435\u0440\u0442\u0438\u043a\u0430\u043b\u044c\u043d\u043e", None))
-        self.label_10.setText(QCoreApplication.translate("Dialog", u"\u041e\u0431\u0435\u0440\u0456\u0442\u044c \u0437\u0430 \u044f\u043a\u0438\u043c \u043f\u0440\u0438\u043d\u0446\u0438\u043f\u043e\u043c \n"
-"\u043a\u0430\u0442\u0430\u043b\u043e\u0433\u0456\u0437\u0443\u0432\u0430\u0442\u0438 \u0441\u0435\u0442 \u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u044c\n"
-"(\u0430\u0431\u043e \u0432\u0441\u0442\u0430\u043d\u043e\u0432\u0456\u0442\u044c \u043f\u0440\u0430\u043f\u043e\u0440\u0435\u0446\u044c)", None))
-        self.checkBox_catalog_needed_main.setText(QCoreApplication.translate("Dialog", u"\u041d\u0435 \u043a\u0430\u0442\u0430\u043b\u043e\u0433\u0456\u0437\u0443\u0432\u0430\u0442\u0438", None))
-        self.radioButton_catalog_size_auto_main.setText(QCoreApplication.translate("Dialog", u"\u0417\u0430 \u0440\u043e\u0437\u043c\u0456\u0440\u0430\u043c\u0438 \u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u043d\u044f \u0430\u0432\u0442\u043e\u043c\u0430\u0442\u0438\u0447\u043d\u043e ", None))
-        self.radioButton_catalog_size_main.setText(QCoreApplication.translate("Dialog", u"\u0417\u0430 \u0432\u043a\u0430\u0437\u0430\u043d\u0438\u043c\u0438 \u0440\u043e\u0437\u043c\u0456\u0440\u0430\u043c\u0438 \u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u043d\u044f", None))
-        self.label_11.setText(QCoreApplication.translate("Dialog", u"\u041f\u0440\u0438\u043a\u043b\u0430\u0434 \u0432\u0432\u0435\u0434\u0435\u043d\u043d\u044f: \n"
-"((200, 200), (300, 300)), ((500, 500), (700, 700))", None))
-        self.radioButton_catalog_file_sizes_main.setText(QCoreApplication.translate("Dialog", u"\u0417\u0430 \u0432\u043a\u0430\u0437\u0430\u043d\u0438\u043c\u0438 \u0440\u043e\u0437\u043c\u0456\u0440\u0430\u043c\u0438 \u0444\u0430\u0439\u043b\u0443", None))
-        self.label_12.setText(QCoreApplication.translate("Dialog", u"\u041f\u0440\u0438\u043a\u043b\u0430\u0434 \u0432\u0432\u0435\u0434\u0435\u043d\u043d\u044f: \n"
-"(10B, 12KB), (11MB, 1GB)", None))
-        self.radioButton_catalog_file_sizes_auto_main.setText(QCoreApplication.translate("Dialog", u"\u0417\u0430 \u0440\u043e\u0437\u043c\u0456\u0440\u0430\u043c\u0438 \u0444\u0430\u0439\u043b\u0443 \u0430\u0432\u0442\u043e\u043c\u0430\u0442\u0438\u0447\u043d\u043e", None))
-        self.radioButton_tags_resnet_main.setText(QCoreApplication.translate("Dialog", u"\u0417\u0430 \u0442\u0435\u0433\u0430\u043c\u0438 ResNet \u043c\u043e\u0434\u0435\u043b\u0456", None))
-        self.radioButton_tags_mob_main.setText(QCoreApplication.translate("Dialog", u"\u0417\u0430 \u0442\u0435\u0433\u0430\u043c\u0438 MobileNetV2 \u043c\u043e\u0434\u0435\u043b\u0456", None))
-        self.pushButton_start_main.setText(QCoreApplication.translate("Dialog", u"\u041f\u043e\u0447\u0430\u0442\u0438", None))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), QCoreApplication.translate("Dialog", u"\u041a\u043e\u0441\u043f\u043b\u0435\u043a\u0441\u043d\u0430 \u043e\u0431\u0440\u043e\u0431\u043a\u0430", None))
-        self.label.setText(QCoreApplication.translate("Dialog", u"\u0412\u043a\u0430\u0436\u0456\u0442\u044c \u043f\u043e\u0448\u0443\u043a\u043e\u0432\u0438\u0439 \u0437\u0430\u043f\u0438\u0442", None))
+        self.label_7.setText(QCoreApplication.translate("Dialog",
+                                                        u"\u0412\u043a\u0430\u0436\u0456\u0442\u044c \u0434\u0438\u0440\u0435\u043a\u0442\u043e\u0440\u0456\u044e \u0434\u043b\u044f \u0437\u0431\u0435\u0440\u0456\u0433\u0430\u043d\u043d\u044f\n"
+                                                        " \u0442\u0435\u043a\u0441\u0442\u043e\u0432\u043e\u0433\u043e \u0444\u0430\u0439\u043b\u0443 \n"
+                                                        "\u0437 \u043e\u0442\u0440\u0438\u043c\u0430\u043d\u0438\u043c\u0438 \u043f\u043e\u0441\u0438\u043b\u0430\u043d\u043d\u044f\u043c\u0438\n"
+                                                        "\u0430\u0431\u043e \u043f\u043e\u0441\u0442\u0430\u0432\u0442\u0435 \u0432\u0456\u0434\u043c\u0456\u0442\u043a\u0443",
+                                                        None))
+        self.checkBox_savefile.setText(QCoreApplication.translate("Dialog",
+                                                                  u"\u041d\u0435 \u0437\u0431\u0435\u0440\u0456\u0433\u0430\u0442\u0438 \u0443 \u0444\u0430\u0439\u043b",
+                                                                  None))
+        self.pushButton_path_directory_file_main.setText(
+            QCoreApplication.translate("Dialog", u"\u041e\u0433\u043b\u044f\u0434", None))
+        self.label_8.setText(QCoreApplication.translate("Dialog",
+                                                        u"\u0412\u043a\u0430\u0436\u0456\u0442\u044c \u0434\u0438\u0440\u0435\u043a\u0442\u043e\u0440\u0456\u044e \u0434\u043b\u044f \u0437\u0431\u0435\u0440\u0456\u0433\u0430\u043d\u043d\u044f\n"
+                                                        " \u043e\u0442\u0440\u0438\u043c\u0430\u043d\u0438\u0445 \u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u044c",
+                                                        None))
+        self.pushButton_path_directory_img_main.setText(
+            QCoreApplication.translate("Dialog", u"\u041e\u0433\u043b\u044f\u0434", None))
+        self.label_6.setText(QCoreApplication.translate("Dialog",
+                                                        u"\u041d\u043e\u0440\u043c\u0430\u043b\u0456\u0437\u0443\u0432\u0430\u0442\u0438 \u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u043d\u044f:",
+                                                        None))
+        self.checkBox_normalization_main.setText("")
+        self.label_9.setText(QCoreApplication.translate("Dialog",
+                                                        u"\u041e\u0431\u0435\u0440\u0456\u0442\u044c \u0431\u0430\u0436\u0430\u043d\u0456 \u043d\u0430\u043b\u0430\u0448\u0442\u0443\u0432\u0430\u043d\u043d\u044f\n"
+                                                        "\u0434\u043b\u044f \u043e\u0447\u0438\u0449\u0435\u043d\u043d\u044f \u0441\u0435\u0442\u0443 \u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u044c\n"
+                                                        "(\u044f\u043a\u0449\u043e \u043d\u0435\u043c\u0430\u0454 \u043d\u0435\u043e\u0431\u0445\u0456\u0434\u043d\u043e\u0441\u0442\u0456 - \u043d\u0435 \u043e\u0431\u0438\u0440\u0430\u0442\u0438)",
+                                                        None))
+        self.checkBox_deletedsave_main.setText(QCoreApplication.translate("Dialog",
+                                                                          u"\u0412\u0438\u0434\u0430\u043b\u0435\u043d\u0456 \u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u043d\u044f \u0437\u0431\u0435\u0440\u0435\u0433\u0442\u0438 \u0443 \u043f\u0430\u043f\u043a\u0443 deleted",
+                                                                          None))
+        self.checkBox_one_color_main.setText(QCoreApplication.translate("Dialog",
+                                                                        u"\u0412\u0438\u0434\u0430\u043b\u0438\u0442\u0438 \u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u043d\u044f \u043e\u0434\u043d\u043e\u0433\u043e \u043a\u043e\u043b\u044c\u043e\u0440\u0443",
+                                                                        None))
+        self.checkBox_small_images_main.setText(QCoreApplication.translate("Dialog",
+                                                                           u"\u0412\u0438\u0434\u0430\u043b\u0438\u0442\u0438 \u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u043d\u044f \u043c\u0430\u043b\u043e\u0433\u043e \u0440\u043e\u0437\u043c\u0456\u0440\u0443\n"
+                                                                           "(\u0432\u043a\u0430\u0436\u0456\u0442\u044c \u0440\u043e\u0437\u043c\u0456\u0440\u0438 \u0448\u0438\u0440\u0438\u043d\u0430 * \u0432\u0438\u0441\u043e\u0442\u0430)",
+                                                                           None))
+        self.checkBox_dublicates_main.setText(QCoreApplication.translate("Dialog",
+                                                                         u"\u0412\u0438\u0434\u0430\u043b\u0438\u0442\u0438 \u0434\u0443\u0431\u043b\u0456\u043a\u0430\u0442\u0438",
+                                                                         None))
+        self.label_10.setText(QCoreApplication.translate("Dialog",
+                                                         u"\u041e\u0431\u0435\u0440\u0456\u0442\u044c \u0437\u0430 \u044f\u043a\u0438\u043c \u043f\u0440\u0438\u043d\u0446\u0438\u043f\u043e\u043c \n"
+                                                         "\u043a\u0430\u0442\u0430\u043b\u043e\u0433\u0456\u0437\u0443\u0432\u0430\u0442\u0438 \u0441\u0435\u0442 \u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u044c\n"
+                                                         "(\u0430\u0431\u043e \u0432\u0441\u0442\u0430\u043d\u043e\u0432\u0456\u0442\u044c \u043f\u0440\u0430\u043f\u043e\u0440\u0435\u0446\u044c)",
+                                                         None))
+        self.checkBox_catalog_needed_main.setText(QCoreApplication.translate("Dialog",
+                                                                             u"\u041d\u0435 \u043a\u0430\u0442\u0430\u043b\u043e\u0433\u0456\u0437\u0443\u0432\u0430\u0442\u0438",
+                                                                             None))
+        self.radioButton_catalog_size_auto_main.setText(QCoreApplication.translate("Dialog",
+                                                                                   u"\u0417\u0430 \u0440\u043e\u0437\u043c\u0456\u0440\u0430\u043c\u0438 \u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u043d\u044f \u0430\u0432\u0442\u043e\u043c\u0430\u0442\u0438\u0447\u043d\u043e ",
+                                                                                   None))
+        self.radioButton_catalog_size_main.setText(QCoreApplication.translate("Dialog",
+                                                                              u"\u0417\u0430 \u0432\u043a\u0430\u0437\u0430\u043d\u0438\u043c\u0438 \u0440\u043e\u0437\u043c\u0456\u0440\u0430\u043c\u0438 \u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u043d\u044f",
+                                                                              None))
+        self.label_11.setText(QCoreApplication.translate("Dialog",
+                                                         u"\u041f\u0440\u0438\u043a\u043b\u0430\u0434 \u0432\u0432\u0435\u0434\u0435\u043d\u043d\u044f: \n"
+                                                         "((200, 200), (300, 300)), ((500, 500), (700, 700))", None))
+        self.radioButton_catalog_file_sizes_auto_main.setText(QCoreApplication.translate("Dialog",
+                                                                                         u"\u0417\u0430 \u0440\u043e\u0437\u043c\u0456\u0440\u0430\u043c\u0438 \u0444\u0430\u0439\u043b\u0443 \u0430\u0432\u0442\u043e\u043c\u0430\u0442\u0438\u0447\u043d\u043e",
+                                                                                         None))
+        self.radioButton_catalog_file_sizes_main.setText(QCoreApplication.translate("Dialog",
+                                                                                    u"\u0417\u0430 \u0432\u043a\u0430\u0437\u0430\u043d\u0438\u043c\u0438 \u0440\u043e\u0437\u043c\u0456\u0440\u0430\u043c\u0438 \u0444\u0430\u0439\u043b\u0443",
+                                                                                    None))
+        self.label_12.setText(QCoreApplication.translate("Dialog",
+                                                         u"\u041f\u0440\u0438\u043a\u043b\u0430\u0434 \u0432\u0432\u0435\u0434\u0435\u043d\u043d\u044f: \n"
+                                                         "(10B, 12KB), (11MB, 1GB)", None))
+        self.radioButton_tags_resnet_main.setText(QCoreApplication.translate("Dialog",
+                                                                             u"\u0417\u0430 \u0442\u0435\u0433\u0430\u043c\u0438 ResNet \u043c\u043e\u0434\u0435\u043b\u0456",
+                                                                             None))
+        self.radioButton_tags_mob_main.setText(QCoreApplication.translate("Dialog",
+                                                                          u"\u0417\u0430 \u0442\u0435\u0433\u0430\u043c\u0438 MobileNetV2 \u043c\u043e\u0434\u0435\u043b\u0456",
+                                                                          None))
+        self.pushButton_start_main.setText(
+            QCoreApplication.translate("Dialog", u"\u041f\u043e\u0447\u0430\u0442\u0438", None))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), QCoreApplication.translate("Dialog",
+                                                                                               u"\u041a\u043e\u0441\u043f\u043b\u0435\u043a\u0441\u043d\u0430 \u043e\u0431\u0440\u043e\u0431\u043a\u0430",
+                                                                                               None))
+        self.label.setText(QCoreApplication.translate("Dialog",
+                                                      u"\u0412\u043a\u0430\u0436\u0456\u0442\u044c \u043f\u043e\u0448\u0443\u043a\u043e\u0432\u0438\u0439 \u0437\u0430\u043f\u0438\u0442",
+                                                      None))
         self.lineEdit.setText("")
-        self.lineEdit.setPlaceholderText(QCoreApplication.translate("Dialog", u"\u043f\u043e\u0448\u0443\u043a\u043e\u0432\u0438\u0439 \u0437\u0430\u043f\u0438\u0442", None))
+        self.lineEdit.setPlaceholderText(QCoreApplication.translate("Dialog",
+                                                                    u"\u043f\u043e\u0448\u0443\u043a\u043e\u0432\u0438\u0439 \u0437\u0430\u043f\u0438\u0442",
+                                                                    None))
         self.label_2.setText(QCoreApplication.translate("Dialog", u"\n"
-"\n"
-"\u041e\u0431\u0435\u0440\u0456\u0442\u044c \u043f\u043e\u0448\u0443\u043a\u043e\u0432\u0456 \u0441\u0438\u0441\u0442\u0435\u043c\u0438 \u0442\u0430 \n"
-"\u043a\u0456\u043b\u044c\u043a\u0456\u0441\u0442\u044c \u0441\u0442\u043e\u0440\u0456\u043d\u043e\u043a \u0434\u043b\u044f \u043e\u0431\u0440\u043e\u0431\u043a\u0438:", None))
+                                                                  "\n"
+                                                                  "\u041e\u0431\u0435\u0440\u0456\u0442\u044c \u043f\u043e\u0448\u0443\u043a\u043e\u0432\u0456 \u0441\u0438\u0441\u0442\u0435\u043c\u0438 \u0442\u0430 \n"
+                                                                  "\u043a\u0456\u043b\u044c\u043a\u0456\u0441\u0442\u044c \u0441\u0442\u043e\u0440\u0456\u043d\u043e\u043a \u0434\u043b\u044f \u043e\u0431\u0440\u043e\u0431\u043a\u0438:",
+                                                        None))
         self.checkBox.setText(QCoreApplication.translate("Dialog", u"Google", None))
         self.checkBox_2.setText(QCoreApplication.translate("Dialog", u"Bing", None))
-        self.label_3.setText(QCoreApplication.translate("Dialog", u"\u0412\u043a\u0430\u0436\u0456\u0442\u044c \u0434\u0438\u0440\u0435\u043a\u0442\u043e\u0440\u0456\u044e \u0434\u043b\u044f \u0437\u0431\u0435\u0440\u0456\u0433\u0430\u043d\u043d\u044f\n"
-" \u0442\u0435\u043a\u0441\u0442\u043e\u0432\u043e\u0433\u043e \u0444\u0430\u0439\u043b\u0443 \n"
-"\u0437 \u043e\u0442\u0440\u0438\u043c\u0430\u043d\u0438\u043c\u0438 \u043f\u043e\u0441\u0438\u043b\u0430\u043d\u043d\u044f\u043c\u0438", None))
+        self.label_3.setText(QCoreApplication.translate("Dialog",
+                                                        u"\u0412\u043a\u0430\u0436\u0456\u0442\u044c \u0434\u0438\u0440\u0435\u043a\u0442\u043e\u0440\u0456\u044e \u0434\u043b\u044f \u0437\u0431\u0435\u0440\u0456\u0433\u0430\u043d\u043d\u044f\n"
+                                                        " \u0442\u0435\u043a\u0441\u0442\u043e\u0432\u043e\u0433\u043e \u0444\u0430\u0439\u043b\u0443 \n"
+                                                        "\u0437 \u043e\u0442\u0440\u0438\u043c\u0430\u043d\u0438\u043c\u0438 \u043f\u043e\u0441\u0438\u043b\u0430\u043d\u043d\u044f\u043c\u0438",
+                                                        None))
         self.pushButton_3.setText(QCoreApplication.translate("Dialog", u"\u041e\u0433\u043b\u044f\u0434", None))
         self.pushButton_2.setText(QCoreApplication.translate("Dialog", u"\u0417\u0430\u043f\u0443\u0441\u043a", None))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), QCoreApplication.translate("Dialog", u"\u0417\u0431\u0456\u0440 \u043f\u043e\u0441\u0438\u043b\u0430\u043d\u044c", None))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), QCoreApplication.translate("Dialog", u"\u0417\u0431\u0456\u0440 \u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u044c", None))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_4), QCoreApplication.translate("Dialog", u"\u041e\u0447\u0438\u0449\u0435\u043d\u043d\u044f \u0441\u0435\u0442\u0443 \u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u044c", None))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_5), QCoreApplication.translate("Dialog", u"\u041d\u043e\u0440\u043c\u0430\u043b\u0456\u0437\u0430\u0446\u0456\u044f \u0441\u0435\u0442\u0443 \u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u044c", None))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_6), QCoreApplication.translate("Dialog", u"\u041a\u0430\u0442\u0430\u043b\u043e\u0433\u0456\u0437\u0430\u0446\u0456\u044f \u0441\u0435\u0442\u0443 \u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u044c", None))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), QCoreApplication.translate("Dialog",
+                                                                                                 u"\u0417\u0431\u0456\u0440 \u043f\u043e\u0441\u0438\u043b\u0430\u043d\u044c",
+                                                                                                 None))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), QCoreApplication.translate("Dialog",
+                                                                                                 u"\u0417\u0431\u0456\u0440 \u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u044c",
+                                                                                                 None))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_4), QCoreApplication.translate("Dialog",
+                                                                                                 u"\u041e\u0447\u0438\u0449\u0435\u043d\u043d\u044f \u0441\u0435\u0442\u0443 \u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u044c",
+                                                                                                 None))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_5), QCoreApplication.translate("Dialog",
+                                                                                                 u"\u041d\u043e\u0440\u043c\u0430\u043b\u0456\u0437\u0430\u0446\u0456\u044f \u0441\u0435\u0442\u0443 \u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u044c",
+                                                                                                 None))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_6), QCoreApplication.translate("Dialog",
+                                                                                                 u"\u041a\u0430\u0442\u0430\u043b\u043e\u0433\u0456\u0437\u0430\u0446\u0456\u044f \u0441\u0435\u0442\u0443 \u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u044c",
+                                                                                                 None))
     # retranslateUi
 
