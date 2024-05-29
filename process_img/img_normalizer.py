@@ -3,7 +3,8 @@ import threading
 
 import cv2
 import numpy as np
-
+from PIL import Image
+from skimage import io
 from tools.file_manager import FileManager
 
 
@@ -17,7 +18,6 @@ class ImagesNormalizer:
 
     def normalize_all(self, img):
         try:
-            print(f"Normalizing image: {img}")
             if self.lightness:
                 img = self.normalize_lightness(img)
             if self.contrast:
@@ -57,9 +57,10 @@ class ImagesNormalizer:
 
     def process_image(self, image_file):
         try:
-            img = cv2.imread(image_file)
+            img = io.imread(image_file)
             normalized_img = self.normalize_all(img)
-            cv2.imwrite(image_file, normalized_img)
+            img = Image.fromarray(np.uint8(normalized_img))
+            img.save(image_file)
         except (IOError, OSError, ValueError) as e:
             print(f"Error processing {image_file}: {e}")
 
@@ -96,10 +97,5 @@ class ImagesNormalizer:
         normalized_img = cv2.addWeighted(img, 1.5, gaussian_img, -0.5, 0)
 
         return normalized_img
-
-
-normalize = ImagesNormalizer()
-normalize.normalize_images('C:\Workspace\diplom\parser\imgs\топ порід котів')
-
 
 

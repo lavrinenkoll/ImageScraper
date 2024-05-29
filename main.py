@@ -19,6 +19,12 @@ class LogicUI(Ui_Dialog):
         super().__init__()
         self.setupUi(dialog)
         self.pushButton_start_main.clicked.connect(self.on_start_main)
+        self.pushButton_path_directory_file_main.clicked.connect(lambda: self.file_dialog(self.lineEdit_path_to_file))
+        self.pushButton_path_directory_img_main.clicked.connect(lambda: self.file_dialog(self.lineEdit_path_directory_img_main))
+
+        self.pushButton_start_parsing.clicked.connect(self.on_search_2)
+        self.pushButton_path_directory_img_2.clicked.connect(lambda: self.file_dialog(self.lineEdit_path_directory_img_2))
+        self.pushButton_path_directory_file_2.clicked.connect(lambda: self.file_dialog(self.lineEdit_path_to_file_2))
 
         self.parser = MainParser(None, None, None, None, None)
         self.imgs_scraper = MainScraper()
@@ -164,6 +170,87 @@ class LogicUI(Ui_Dialog):
                 error_dialog.exec()
 
         threading.Thread(target=start).start()
+
+
+    def file_dialog(self, label):
+        directory = QtWidgets.QFileDialog.getExistingDirectory()
+        label.setText(directory)
+
+
+    def on_search_2(self):
+        query = self.lineEdit_search_2.text()
+        google_needed = self.checkBox_google_2.isChecked()
+        n_pages_google = int(self.spinBox_google_2.text())
+        bing_needed = self.checkBox_bing_2.isChecked()
+        n_pages_bing = int(self.spinBox_bing_2.text())
+        if not query:
+            error_dialog = QtWidgets.QErrorMessage()
+            error_dialog.showMessage('Введіть запит')
+            error_dialog.exec()
+            return
+        if not google_needed and not bing_needed or n_pages_google == 0 and n_pages_bing == 0:
+            error_dialog = QtWidgets.QErrorMessage()
+            error_dialog.showMessage('Оберіть хоча б один пошуковик та вкажіть кількість сторінок для пошуку')
+            error_dialog.exec()
+            return
+        n_pages_google = 0 if not google_needed else n_pages_google
+        n_pages_bing = 0 if not bing_needed else n_pages_bing
+
+        save_links = self.checkBox_savefile_2.isChecked()
+        directory_path = None
+        if not save_links:
+            directory_path = self.lineEdit_path_to_file_2.text()
+            directory_path_valid = os.path.isdir(directory_path)
+            if not directory_path or not directory_path_valid or not os.access(directory_path, os.W_OK):
+                error_dialog = QtWidgets.QErrorMessage()
+                error_dialog.showMessage('Вкажіть шлях для збереження файлу з посиланнями')
+                error_dialog.exec()
+                return
+
+        save_img = self.checkBox_saveimgs_2.isChecked()
+        if save_links and save_img:
+            error_dialog = QtWidgets.QErrorMessage()
+            error_dialog.showMessage('Оберіть хоча б один спосіб збереження інформації')
+            error_dialog.exec()
+            return
+
+        path_to_save = None
+        if not save_img:
+            path_to_save = self.lineEdit_path_directory_img_2.text()
+            path_to_save_valid = os.path.isdir(path_to_save)
+            if not path_to_save or not path_to_save_valid or not os.access(path_to_save, os.W_OK):
+                error_dialog = QtWidgets.QErrorMessage()
+                error_dialog.showMessage('Вкажіть шлях для збереження зображень')
+                error_dialog.exec()
+                return
+
+        label = self.label
+
+        label.show()
+        label.setText('Підготовка...')
+        driver_google = webdriver.Chrome()
+        driver_bing = webdriver.Chrome()
+
+        self.parser = MainParser(query, driver_google, driver_bing, n_pages_google, n_pages_bing)
+        self.imgs_scraper = MainScraper()
+
+        def start():
+            try:
+                label.setText('Парсинг...')
+                links = self.parser.parse(path_to_save=directory_path)
+                if not save_img:
+                    label.setText('Скачування зображень...')
+                    self.imgs_scraper.run(links, query, path_to_save)
+                label.setText('Готово')
+                label.hide()
+            except Exception as e:
+                label.hide()
+                error_dialog = QtWidgets.QErrorMessage()
+                error_dialog.showMessage(f'Помилка: {e}')
+                error_dialog.exec()
+
+        threading.Thread(target=start).start()
+
 
 
 
