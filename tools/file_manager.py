@@ -25,18 +25,32 @@ class FileManager:
 
     def extract_images_from_folders(self, directory):
         subdirectories = [os.path.join(directory, d) for d in os.listdir(directory) if
-                          os.path.isdir(os.path.join(directory, d))]
+                          os.path.isdir(os.path.join(directory, d)) and d != "deleted"]
 
         for subdir in subdirectories:
             for file in os.listdir(subdir):
                 if file.endswith(self.extensions):
                     source_path = os.path.join(subdir, file)
                     destination_path = os.path.join(directory, file)
-
                     shutil.move(source_path, destination_path)
 
             if not os.listdir(subdir):
                 os.rmdir(subdir)
+
+    def extract_images_from_folders_recursive(self, directory):
+        for root, dirs, files in os.walk(directory):
+            for file in files:
+                if file.endswith(self.extensions):
+                    source_path = os.path.join(root, file)
+                    destination_path = os.path.join(directory, file)
+                    shutil.move(source_path, destination_path)
+
+        for root, dirs, files in os.walk(directory, topdown=False):
+            for subdir in dirs:
+                if subdir != "deleted":
+                    folder_path = os.path.join(root, subdir)
+                    if not os.listdir(folder_path):
+                        os.rmdir(folder_path)
 
     @staticmethod
     def delete_file(file_path, max_retries=3, retry_delay=1, save_deleted=False):

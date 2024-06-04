@@ -18,10 +18,10 @@ class ImagesNormalizer:
 
     def normalize_all(self, img):
         try:
-            if self.lightness:
-                img = self.normalize_lightness(img)
             if self.contrast:
                 img = self.normalize_contrast(img)
+            if self.lightness:
+                img = self.normalize_lightness(img)
             if self.color:
                 img = self.normalize_color(img)
             if self.sharpness:
@@ -76,7 +76,7 @@ class ImagesNormalizer:
     def normalize_contrast(img):
         lab = cv2.cvtColor(img, cv2.COLOR_BGR2LAB)
         l_channel, a_channel, b_channel = cv2.split(lab)
-        clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
+        clahe = cv2.createCLAHE(clipLimit=1.0, tileGridSize=(4, 4))
         l_channel = clahe.apply(l_channel)
         lab = cv2.merge((l_channel, a_channel, b_channel))
         normalized_img = cv2.cvtColor(lab, cv2.COLOR_LAB2BGR)
@@ -85,17 +85,15 @@ class ImagesNormalizer:
 
     @staticmethod
     def normalize_color(img):
-        normalized_img = img.copy()
-        for i in range(3):
-            normalized_img[:, :, i] = cv2.equalizeHist(img[:, :, i])
+        img_yuv = cv2.cvtColor(img, cv2.COLOR_BGR2YUV)
+        img_yuv[:, :, 0] = cv2.equalizeHist(img_yuv[:, :, 0])
+        normalized_img = cv2.cvtColor(img_yuv, cv2.COLOR_YUV2BGR)
 
         return normalized_img
 
     @staticmethod
     def normalize_sharpness(img):
-        gaussian_img = cv2.GaussianBlur(img, (9, 9), 10.0)
-        normalized_img = cv2.addWeighted(img, 1.5, gaussian_img, -0.5, 0)
+        blurred = cv2.GaussianBlur(img, (0, 0), 3)
+        normalized_img = cv2.addWeighted(img, 1.5, blurred, -0.5, 0)
 
         return normalized_img
-
-

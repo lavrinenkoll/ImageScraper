@@ -26,6 +26,10 @@ class ImagesCataloger:
         self.file_manager.extract_images_from_folders(self.directory)
         self.image_files = self.file_manager.get_image_files(self.directory)
 
+    def extract_images_from_folders_recursive(self):
+        self.file_manager.extract_images_from_folders_recursive(self.directory)
+        self.image_files = self.file_manager.get_image_files(self.directory)
+
     def split_images_by_resolution(self, list_resolutions):
         self.image_files = self.file_manager.get_image_files(self.directory)
 
