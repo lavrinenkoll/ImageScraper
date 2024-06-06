@@ -11,6 +11,7 @@ from PySide6.QtWidgets import (QApplication, QCheckBox, QDialog, QFrame,
     QPushButton, QRadioButton, QSizePolicy, QSpinBox,
     QTabWidget, QVBoxLayout, QWidget)
 
+
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         if not Dialog.objectName():
@@ -82,7 +83,6 @@ class Ui_Dialog(object):
 "	border-bottom-color: #FF00FF;\n"
 "	border-bott"
                         "om-width: 1px;\n"
-"	border-bottom-radius: 6px;\n"
 "	border-style: solid;\n"
 "	color: #FFFFFF;\n"
 "	padding-bottom: 2px;\n"
@@ -95,7 +95,6 @@ class Ui_Dialog(object):
 "	border-left-color: transparent;\n"
 "	border-bottom-color: #FF00FF;\n"
 "	border-bottom-width: 2px;\n"
-"	border-bottom-radius: 6px;\n"
 "	border-style: solid;\n"
 "	color: #480fa3;\n"
 "	padding-bottom: 1px;\n"
@@ -108,7 +107,6 @@ class Ui_Dialog(object):
 "	border-left-color: transparent;\n"
 "	border-bottom-color: transparent;\n"
 "	border-bottom-width: 2px;\n"
-"	border-bottom-radius: 6px;\n"
 "	border-style: solid;\n"
 "	color: #808086;\n"
 "	padding-bottom: 1px;\n"
@@ -134,7 +132,6 @@ class Ui_Dialog(object):
 "	border-left-color: transparent;\n"
 "	border-bottom-color: #480fa3;\n"
 "	border-bottom-width: 2px;\n"
-"	border-bottom-radius: 6px;\n"
 "	border-style: solid;\n"
 "	color: #FFFFFF;\n"
 "	padding-bottom: 1px;\n"
@@ -189,7 +186,6 @@ class Ui_Dialog(object):
 "	border-left-color: transparent;\n"
 "	border-bottom-color: #480fa3;\n"
 "	border-bottom-width: 1px;\n"
-"	border-bottom-radius: 6px;\n"
 "	border-style: solid;\n"
 "	color: #FFFFFF;\n"
 "	padding-bottom: 0px;\n"

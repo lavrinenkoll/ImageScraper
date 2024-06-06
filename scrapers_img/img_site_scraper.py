@@ -1,7 +1,4 @@
-import os
-from io import BytesIO
 import requests
-from PIL import Image
 from bs4 import BeautifulSoup
 from tools.file_manager import FileManager
 

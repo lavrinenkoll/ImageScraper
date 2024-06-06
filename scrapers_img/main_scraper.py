@@ -25,23 +25,24 @@ class MainScraper:
             thread.join()
 
     def worker(self, work_queue, query, path):
+        scraper = ImagesFromSiteScraper()
         while True:
             try:
                 url = work_queue.get(timeout=1)
-                self.process_url(url, query, path)
+                self.process_url(scraper, url, query, path)
             except queue.Empty:
                 break
             except Exception as e:
                 print(f"Error in worker thread: {e}")
 
-    def process_url(self, url, query, path, timeout=15):
+    def process_url(self, scraper, url, query, path, timeout=15):
         try:
             if url not in self.processed_urls:
                 timer = threading.Timer(timeout, self.handle_timeout, args=(url,))
                 timer.start()
 
-                self.scraper.scrape(url)
-                self.scraper.save_images(f"{path}/{query}")
+                scraper.scrape(url)
+                scraper.save_images(f"{path}/{query}")
 
                 timer.cancel()
                 self.processed_urls.add(url)

@@ -58,6 +58,7 @@ class ImagesNormalizer:
     def process_image(self, image_file):
         try:
             img = io.imread(image_file)
+            print(f"Normalizing {image_file}")
             normalized_img = self.normalize_all(img)
             img = Image.fromarray(np.uint8(normalized_img))
             img.save(image_file)
