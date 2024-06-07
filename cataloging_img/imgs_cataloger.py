@@ -104,17 +104,17 @@ class ImagesCataloger:
 
         list_resolutions = sorted(list_resolutions, key=lambda x: x[0][0])
 
-        plt.figure(figsize=(15, 10))
-        plt.scatter(*zip(*sizes))
-        plt.xlabel('Width')
-        plt.ylabel('Height')
-        plt.title('Image sizes')
-        for resolution in list_resolutions:
-            min_width, min_height = resolution[0]
-            max_width, max_height = resolution[1]
-            color = (random(), random(), random())
-            plt.fill_between([min_width, max_width], min_height, max_height, color=color, alpha=0.2)
-        plt.show()
+        # plt.figure(figsize=(15, 10))
+        # plt.scatter(*zip(*sizes))
+        # plt.xlabel('Width')
+        # plt.ylabel('Height')
+        # plt.title('Image sizes')
+        # for resolution in list_resolutions:
+        #     min_width, min_height = resolution[0]
+        #     max_width, max_height = resolution[1]
+        #     color = (random(), random(), random())
+        #     plt.fill_between([min_width, max_width], min_height, max_height, color=color, alpha=0.2)
+        # plt.show()
 
         return list_resolutions
 
@@ -193,16 +193,16 @@ class ImagesCataloger:
 
         list_file_sizes = sorted(list_file_sizes, key=lambda x: x[0])
 
-        plt.figure(figsize=(15, 10))
-        plt.scatter(range(len(file_sizes)), file_sizes)
-        plt.xlabel('Image')
-        plt.ylabel('File size')
-        plt.title('Image file sizes')
-        for file_size in list_file_sizes:
-            min_size, max_size = file_size
-            color = (random(), random(), random())
-            plt.fill_between(range(len(file_sizes)), min_size, max_size, color=color, alpha=0.2)
-        plt.show()
+        # plt.figure(figsize=(15, 10))
+        # plt.scatter(range(len(file_sizes)), file_sizes)
+        # plt.xlabel('Image')
+        # plt.ylabel('File size')
+        # plt.title('Image file sizes')
+        # for file_size in list_file_sizes:
+        #     min_size, max_size = file_size
+        #     color = (random(), random(), random())
+        #     plt.fill_between(range(len(file_sizes)), min_size, max_size, color=color, alpha=0.2)
+        # plt.show()
 
         return list_file_sizes
 
